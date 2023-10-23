@@ -7,16 +7,16 @@ import java.util.Random;
 import com.badlogic.gdx.graphics.Color;
 
 public class Block {
-    int x,y,width,height;
-    Color cc;
-    boolean destroyed;
+    private int x,y,width,height;
+    private Color cc;
+    private boolean destroyed;
     
     public Block(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        destroyed = false;
+        this.destroyed = false;
         Random r = new Random(x+y);
         
        cc = new Color(0.1f+r.nextFloat(1), r.nextFloat(1), r.nextFloat(1), 10);
@@ -25,5 +25,35 @@ public class Block {
     public void draw(ShapeRenderer shape){
     	shape.setColor(cc);
         shape.rect(x, y, width, height);
+    }
+    
+    public boolean getDestroyed()
+    {
+    	return this.destroyed;
+    }
+    
+    public void setDestroyed()
+    {
+    	this.destroyed = true;
+    }
+    
+    public int getX()
+    {
+    	return this.x;
+    }
+    
+    public int getY()
+    {
+    	return this.y;
+    }
+    
+    public int getWidth()
+    {
+    	return this.width;
+    }
+    
+    public int getHeight()
+    {
+    	return this.height;
     }
 }

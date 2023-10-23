@@ -1,21 +1,23 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class MainMenuScreen implements Screen {
-	
-	final BlockBreakerMenu game;
-	private SpriteBatch batch;
+public class PausaScreen implements Screen {
+	private final BlockBreakerMenu game;
+	private GameScreen juego;
+	private SpriteBatch batch;	   
 	private BitmapFont font;
 	private OrthographicCamera camera;
-	
-	public MainMenuScreen(final BlockBreakerMenu game) {
+
+	public PausaScreen (final BlockBreakerMenu game, GameScreen juego) {
 		this.game = game;
+        this.juego = juego;
         this.batch = game.getBatch();
         this.font = game.getFont();
 		camera = new OrthographicCamera();
@@ -31,20 +33,21 @@ public class MainMenuScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		ScreenUtils.clear(0, 0, 0.2f, 1);
+		ScreenUtils.clear(0, 0, 1.0f, 0.5f);
 
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		font.getData().setScale(2, 2);
-		font.draw(batch, "Bienvenido a Recolecta Gotas!!! ", 100, camera.viewportHeight/2+50);
-		font.draw(batch, "Toca en cualquier lugar para comenzar!", 100, camera.viewportHeight/2-50);
-
+		font.draw(batch, "Juego en Pausa ", 100, 150);
+		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 100);
 		batch.end();
 
+        //Salir del juego
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) System.exit(0);
+		
 		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
+			game.setScreen(juego);
 			dispose();
 		}
 
