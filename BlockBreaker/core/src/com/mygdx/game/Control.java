@@ -3,31 +3,33 @@ package com.mygdx.game;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.CarpetaNiveles.*;
 
 public class Control {
     private ArrayList<Niveles> niveles;
     private ArrayList<Block> blocks;
-    private int vidas;
-    private int puntaje;
+    private int vidas=3;
+    private int puntaje=0;
     private int indiceNivel;
     private PingBall ball;
     private Paddle pad;
     private ShapeRenderer shape;
+    private SpriteBatch batch;
 
     public Control() {
         niveles = new ArrayList<>();
         indiceNivel = 0;
         niveles.add(new Nivel1(1));
         niveles.add(new Nivel2(2));
-
+        batch = new SpriteBatch();
         shape = new ShapeRenderer();
         pad = new Paddle();
         ball = new PingBall(pad);
         blocks = new ArrayList<>();
-        vidas = 3;
-        puntaje = 0;
+
+     // Inicializa el nivel 1
         InicializarJuegoPorNivel();
     }
 
@@ -87,12 +89,12 @@ public class Control {
 
     // Dibujar bloques
     public void dibujarBloques() {
-    	shape.begin(ShapeRenderer.ShapeType.Filled); // Llama a begin aquí
+        batch.begin();
         for (Block b : blocks) {
-            b.draw(shape);
+            b.draw(batch);
             ball.checkCollision(b);
         }
-        shape.end();
+        batch.end();
     }
 
     // Actualizar bloques
@@ -106,11 +108,11 @@ public class Control {
             }
         }
     }
-    
+
     public void dibujarTabla() {
-    	shape.begin(ShapeRenderer.ShapeType.Filled);
-        pad.draw(shape);
-        shape.end();
+        batch.begin();
+      	pad.draw(batch);
+        batch.end();
     }
 
     public void colisionPelota() {
@@ -118,8 +120,26 @@ public class Control {
     }
 
     public void dibujarPelota() {
-    	shape.begin(ShapeRenderer.ShapeType.Filled);
+      shape.begin(ShapeRenderer.ShapeType.Filled);
         ball.draw(shape);
         shape.end();
     }
+
+  public int getVidas() {
+    return vidas;
+  }
+
+  public void setVidas(int vidas) {
+    this.vidas = vidas;
+  }
+
+  public int getPuntaje() {
+    return puntaje;
+  }
+
+  public void setPuntaje(int puntaje) {
+    this.puntaje = puntaje;
+  }
+
+
 }

@@ -1,30 +1,29 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
-import java.util.Random;
-
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Block {
     private int x,y,width,height;
-    private Color cc;
     private boolean destroyed;
+    private Sprite sprite;
     
-    public Block(int x, int y, int width, int height) {
+    public Block(int x, int y, int width, int height, Texture texture) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.destroyed = false;
-        Random r = new Random(x+y);
-        
-       cc = new Color(0.1f+r.nextFloat(1), r.nextFloat(1), r.nextFloat(1), 10);
+        sprite = new Sprite(texture);
+        sprite.setBounds(x, y, width, height);
   
     }
-    public void draw(ShapeRenderer shape){
-    	shape.setColor(cc);
-        shape.rect(x, y, width, height);
+    
+    public void draw(SpriteBatch batch) {
+        if (!destroyed) {
+            sprite.draw(batch);
+        }
     }
     
     public boolean getDestroyed()

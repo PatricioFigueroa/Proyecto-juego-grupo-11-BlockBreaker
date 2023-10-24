@@ -17,8 +17,6 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private BitmapFont font;
-    private int vidas = 3;
-    private int puntaje = 0;
     private Texture fondo;
     private Sprite fondoReal;
     private SpriteBatch spriteBatch;
@@ -33,7 +31,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() * 1.08f, Gdx.graphics.getHeight());
 
-        fondo = new Texture("badlogic.jpg");
+        fondo = new Texture("fondo2.png");
         fondoReal = new Sprite(fondo);
         spriteBatch = new SpriteBatch();
 
@@ -50,8 +48,8 @@ public class GameScreen implements Screen {
         batch.begin();
 
         // Dibujar textos
-        font.draw(batch, "Puntos: " + puntaje, 10, 25);
-        font.draw(batch, "Vidas : " + vidas, Gdx.graphics.getWidth() - 20, 25);
+        font.draw(batch, "Puntos: " + controlador.getPuntaje(), 10, 25);
+        font.draw(batch, "Vidas : " + controlador.getVidas(), Gdx.graphics.getWidth() - 20, 25);
         batch.end();
     }
 
@@ -77,7 +75,7 @@ public class GameScreen implements Screen {
 
         // Imagen de fondo
         renderBackground();
-        
+
         //Dibujar Tabla
         controlador.dibujarTabla();
 
@@ -86,6 +84,7 @@ public class GameScreen implements Screen {
 
         // Verificar si se fue la bola x abajo
         controlador.verificarPelotar();
+
 
         // Verificar game over
         if (controlador.isGameOver()) {
@@ -104,11 +103,9 @@ public class GameScreen implements Screen {
         // Actualizar estado de los bloques
         controlador.actualizarBloques();
 
-        // Salir del juego
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) System.exit(0);
         // Pausar juego
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) pause();
-        
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) pause();
+
         // Dibujar pelota
         controlador.dibujarPelota();
         // Verificar colisiones de la pelota

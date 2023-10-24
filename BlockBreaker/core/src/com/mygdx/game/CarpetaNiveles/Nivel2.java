@@ -1,6 +1,7 @@
 package com.mygdx.game.CarpetaNiveles;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Block;
 import com.mygdx.game.Niveles;
 
@@ -34,7 +35,8 @@ public class Nivel2 extends Niveles {
             y -= blockHeight + 10;
             for (int j = 0; j < width; j++) {
                 if (customBlockLayout[i][j] == 1) {
-                    blocks.add(new Block(j * (blockWidth + 10), y, blockWidth, blockHeight));
+                	Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.jpg"));
+                    blocks.add(block);
                 }
             }
         }
