@@ -6,32 +6,44 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.CarpetaNiveles.*;
+import java.util.Random;
 
 public class Control {
     private ArrayList<Niveles> niveles;
     private ArrayList<Block> blocks;
-    private int vidas=3;
-    private int puntaje=0;
+    private int vidas = 3;
+    private int puntaje = 0;
     private int indiceNivel;
+    private ControlPoder controlPoder;
     private PingBall ball;
     private Paddle pad;
     private ShapeRenderer shape;
     private SpriteBatch batch;
+    private ControlBolasEnJuego controlBolasEnJuego;
 
-    public Control() {
+     public Control() {
         niveles = new ArrayList<>();
-        indiceNivel = 0;
-        niveles.add(new Nivel1(1));
-        niveles.add(new Nivel2(2));
-        batch = new SpriteBatch();
-        shape = new ShapeRenderer();
-        pad = new Paddle();
-        ball = new PingBall(pad);
-        blocks = new ArrayList<>();
+            indiceNivel = 0;
+            niveles.add(new Nivel1(1));
+            niveles.add(new Nivel2(2));
 
-     // Inicializa el nivel 1
-        InicializarJuegoPorNivel();
-    }
+            // Inicializa controlBolasEnJuego
+            controlBolasEnJuego = new ControlBolasEnJuego();
+
+            // Crea una instancia de ControlPoder y pasa controlBolasEnJuego
+            controlPoder = new ControlPoder(controlBolasEnJuego);
+
+            batch = new SpriteBatch();
+            shape = new ShapeRenderer();
+            pad = new Paddle();
+            ball = new PingBall(pad);
+            blocks = new ArrayList<>();
+
+            // Inicializa el nivel 1
+            InicializarJuegoPorNivel();
+        }    
+    
+
 
     public void avanzarNivel() {
         if (indiceNivel < niveles.size() - 1) {
@@ -57,13 +69,40 @@ public class Control {
         }
     }
 
-    // Verificar si se fue la bola x abajo
+    /* Verificar si se fue la bola x abajo
     public void verificarPelotar() {
         if (ball.getY() < 0) {
             vidas--;
-            ball = new PingBall(pad);
+
+            if (vidas > 0) {
+                // Si quedan vidas, restablece la posición de la pelota
+                ball = new PingBall(pad);
+            } else {
+                // Si no quedan vidas, elimina todas las bolas en juego y realiza acciones de fin de juego
+                controlBolasEnJuego.();
+                // Realiza otras acciones de fin de juego aquí
+            }
         }
     }
+    */
+    public void verificarPelotar() {
+    	controlBolasEnJuego.clearBolasFueraDePantalla();
+        if (ball.getY() < 0 && controlBolasEnJuego.isEmpty()) {
+            vidas--;
+
+            if (vidas > 0) {
+                // Si quedan vidas, restablece la posición de la pelota principal
+                ball = new PingBall(pad);
+            } else {
+                // Si no quedan vidas, realiza acciones de fin de juego
+                // Aquí puedes mostrar un mensaje de "Juego terminado" o realizar otras acciones necesarias
+                // También puedes llamar a controlBolasEnJuego.clear() si deseas eliminar todas las bolas en juego
+            }
+        }
+    }
+
+
+
 
     // Verificar game over
     public boolean isGameOver() {
@@ -98,48 +137,79 @@ public class Control {
     }
 
     // Actualizar bloques
-    public void actualizarBloques() {
+    public void actualizarBloques(ControlBolasEnJuego controlBolasEnJuego) {
         for (int i = 0; i < blocks.size(); i++) {
             Block b = blocks.get(i);
             if (b.getDestroyed()) {
                 puntaje++;
+                int bloqueX = b.getX(); // Obtiene la coordenada X del bloque
+                int bloqueY = b.getY(); // Obtiene la coordenada Y del bloque
                 blocks.remove(b);
+
+                Random random = new Random();
+                int numeroAleatorio = random.nextInt(100) + 1;
+                if (numeroAleatorio >= 0) {
+                    PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
+                    if (nuevaBola != null) {
+                        controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
+                    }
+                }
                 i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
         }
     }
 
+
+    public void colisionPelota(ControlBolasEnJuego controlBolasEnJuego) {
+        ball.checkCollision(pad); // Colisión de la bola original con el paddle
+        
+        // Colisiones de las bolas dobles con el paddle
+        for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
+            bola.checkCollision(pad);
+        }
+
+        // Lógica de colisión de todas las bolas con los bloques
+        for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
+            for (Block block : blocks) {
+                bola.checkCollision(block);
+            }
+        }
+    }
+
+
+
     public void dibujarTabla() {
         batch.begin();
-      	pad.draw(batch);
+        pad.draw(batch);
         batch.end();
     }
 
-    public void colisionPelota() {
-        ball.checkCollision(pad);
-    }
+    
 
-    public void dibujarPelota() {
-      shape.begin(ShapeRenderer.ShapeType.Filled);
+    
+
+    public void dibujarPelota(ControlBolasEnJuego controlBolasEnJuego) {
+        shape.begin(ShapeRenderer.ShapeType.Filled);
         ball.draw(shape);
+        for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
+            bola.draw(shape);
+        }
         shape.end();
     }
 
-  public int getVidas() {
-    return vidas;
-  }
+    public int getVidas() {
+        return vidas;
+    }
 
-  public void setVidas(int vidas) {
-    this.vidas = vidas;
-  }
+    public void setVidas(int vidas) {
+        this.vidas = vidas;
+    }
 
-  public int getPuntaje() {
-    return puntaje;
-  }
+    public int getPuntaje() {
+        return puntaje;
+    }
 
-  public void setPuntaje(int puntaje) {
-    this.puntaje = puntaje;
-  }
-
-
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
 }

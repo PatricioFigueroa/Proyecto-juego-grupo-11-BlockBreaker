@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
-
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import java.util.ArrayList;
 
-public class PingBall {
+public class PingBall implements Bola {
 	    private int x;
 	    private int y;
 	    private int size;
@@ -31,24 +30,30 @@ public class PingBall {
 	        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	    }
     
+
 	    public boolean estaQuieto() {
 	    	return estaQuieto;
 	    }
+
 	    public void setEstaQuieto(boolean bb) {
 	    	estaQuieto=bb;
 	    }
+
 	    public void setXY(int x, int y) {
 	    	this.x = x;
 	        this.y = y;
 	    }
+
 	    public int getY() {return y;}
 	    
 	    public void draw(ShapeRenderer shape){
+
 	        shape.setColor(color);
 	        shape.circle(x, y, size);
 	    }
 	    
 	    public void update() {
+
 	        if (estaQuieto) return;
 
 	        x += xSpeed;
@@ -67,8 +72,48 @@ public class PingBall {
 	            ySpeed = -Math.abs(ySpeed); // Cambia la dirección en Y
 	        }
 	    }
+	    
+	    public void checkCollision(Paddle paddle, ArrayList<Block> blocks) {
+	        boolean collidesWithPaddle = collidesWith(paddle);
 
+	        if (collidesWithPaddle) {
+	            // Lógica de colisión con el paddle
+	            color = Color.BLUE;
 
+	            if (x - size <= paddle.getX()) {
+	                x = paddle.getX() - size;
+	                xSpeed = -xSpeed;
+	                ySpeed = Math.abs(ySpeed);
+	            } else if (x + size >= paddle.getX() + paddle.getWidth()) {
+	                x = paddle.getX() + paddle.getWidth() + size;
+	                ySpeed = Math.abs(ySpeed);
+	                xSpeed = -xSpeed;
+	            } else {
+	                ySpeed = -ySpeed;
+	            }
+	        } else {
+	            // No hay colisión con el paddle
+	            color = Color.WHITE;
+	        }
+
+	        for (Block block : blocks) {
+	            if (collidesWith(block)) {
+	                // Lógica de colisión con los bloques
+	                hurtSound.play();
+	                block.setDestroyed();
+	                
+	                if (x - size <= block.getX()) {
+	                    xSpeed = -Math.abs(xSpeed);
+	                } else if (x + size >= block.getX() + block.getWidth()) {
+	                    xSpeed = Math.abs(xSpeed);
+	                } else if (y + size >= block.getY() + block.getHeight()) {
+	                    ySpeed = Math.abs(ySpeed);
+	                } else {
+	                    ySpeed = -Math.abs(ySpeed);
+	                }
+	            }
+	        }
+	    }
 	    
 	    public void checkCollision(Paddle paddle) {
 	        boolean collidesWithPaddle = collidesWith(paddle);
@@ -99,15 +144,15 @@ public class PingBall {
 	        }
 	    }
 
-
+	    
 	    
 	    private boolean collidesWith(Paddle paddle) {
+
 	        boolean intersectaX = (x + size >= paddle.getX() && x - size <= paddle.getX() + paddle.getWidth());
 	        boolean intersectaY = (y >= paddle.getY() && y <= paddle.getY() + paddle.getHeight());
 	        return intersectaX && intersectaY;
 	    }
 	    
-
 
 	    public void checkCollision(Block block) {
 	        if(collidesWith(block)){
@@ -136,5 +181,32 @@ public class PingBall {
 	        boolean intersectaY = (bb.getY() + bb.getHeight() >= y-size) && (bb.getY() <= y+size);		
 	    	return intersectaX && intersectaY;
 	    }
+
+
+		@Override
+		public int getXSpeed() {
+			// TODO Auto-generated method stub
+			return xSpeed;
+		}
+
+
+		@Override
+		public int getYSpeed() {
+			// TODO Auto-generated method stub
+			return ySpeed;
+		}
+
+
+		@Override
+		public int getX() {
+			// TODO Auto-generated method stub
+			return x;
+		}
+
+
+		public int getSize() {
+			// TODO Auto-generated method stub
+			return size;
+		}
 	    
 	}

@@ -22,6 +22,8 @@ public class GameScreen implements Screen {
     private SpriteBatch spriteBatch;
 
     private Control controlador;
+    private ControlBolasEnJuego controlBolasEnJuego;
+ 
 
     public GameScreen(final BlockBreakerMenu game) {
         this.game = game;
@@ -37,6 +39,9 @@ public class GameScreen implements Screen {
 
         // Inicializa el controlador
         controlador = new Control();
+        
+        controlBolasEnJuego = new ControlBolasEnJuego();
+        
 
     }
 
@@ -101,15 +106,16 @@ public class GameScreen implements Screen {
         controlador.dibujarBloques();
 
         // Actualizar estado de los bloques
-        controlador.actualizarBloques();
-
+        controlador.actualizarBloques( controlBolasEnJuego);
+        
         // Pausar juego
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) pause();
 
         // Dibujar pelota
-        controlador.dibujarPelota();
+        controlador.dibujarPelota(controlBolasEnJuego);
         // Verificar colisiones de la pelota
-        controlador.colisionPelota();
+        
+        controlador.colisionPelota(controlBolasEnJuego);
 
         dibujaTextos();
     }
