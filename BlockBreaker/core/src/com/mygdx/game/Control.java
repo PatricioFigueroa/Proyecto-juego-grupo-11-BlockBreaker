@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.CarpetaNiveles.*;
-import java.util.Random;
 
 public class Control {
     private ArrayList<Niveles> niveles;
@@ -146,13 +145,12 @@ public class Control {
                 int bloqueY = b.getY(); // Obtiene la coordenada Y del bloque
                 blocks.remove(b);
 
-                Random random = new Random();
-                int numeroAleatorio = random.nextInt(100) + 1;
-                if (numeroAleatorio >= 0) {
-                    PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
-                    if (nuevaBola != null) {
-                        controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
-                    }
+                PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
+                if (nuevaBola != null) {
+                	controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
+                        
+                        
+                    
                 }
                 i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
@@ -166,14 +164,14 @@ public class Control {
         // Colisiones de las bolas dobles con el paddle
         for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
             bola.checkCollision(pad);
-        }
-
-        // Lógica de colisión de todas las bolas con los bloques
-        for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
+         // Lógica de colisión de todas las bolas con los bloques
             for (Block block : blocks) {
                 bola.checkCollision(block);
             }
         }
+
+        
+
     }
 
 

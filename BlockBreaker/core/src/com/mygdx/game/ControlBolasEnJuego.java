@@ -22,6 +22,7 @@ public class ControlBolasEnJuego {
     public ArrayList<PingBallDoble> getBolasEnJuego() {
         return bolasEnJuego;
     }
+    
 
     public boolean isEmpty()
     {

@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -59,10 +60,13 @@ public class PausaScreen implements Screen {
 		font.draw(batch, "Toca en cualquier lado para continuar !!!", 100, 100);
 		batch.end();
 		
+		if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) System.exit(0);
+		
 		if (Gdx.input.isTouched()) {
 			game.setScreen(juego);
 			dispose();
 		}
+		
 
 	}
 

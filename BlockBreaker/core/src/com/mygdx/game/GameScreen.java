@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
         controlador.dibujarBloques();
 
         // Actualizar estado de los bloques
-        controlador.actualizarBloques( controlBolasEnJuego);
+        controlador.actualizarBloques(controlBolasEnJuego);
         
         // Pausar juego
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) pause();

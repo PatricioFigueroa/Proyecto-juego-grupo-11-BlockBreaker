@@ -12,7 +12,7 @@ public class PingBallDoble implements Bola {
     private int size;
     private int xSpeed;
     private int ySpeed;
-    private Color color = Color.YELLOW;
+    private Color color = Color.WHITE;
     private boolean estaQuieto;
     private Sound hurtSound;
 
@@ -118,7 +118,7 @@ public class PingBallDoble implements Bola {
 
         } else {
             // No hay colisión
-            color = Color.YELLOW;
+            color = Color.WHITE;
         }
     }
 
@@ -130,37 +130,7 @@ public class PingBallDoble implements Bola {
         boolean intersectaY = (y >= paddle.getY() && y <= paddle.getY() + paddle.getHeight());
         return intersectaX && intersectaY;
     }
-    
-    public void checkCollision(Paddle paddle, ArrayList<Block> blocks) {
-        // Colisión con el paddle
-        boolean collidesWithPaddle = collidesWith(paddle);
-
-        if (collidesWithPaddle) {
-            // Lógica de colisión con el paddle (similar a la PingBall original)
-        } else {
-            color = Color.YELLOW;
-        }
-
-        // Colisión con los bloques
-        for (Block block : new ArrayList<>(blocks)) {
-            if (collidesWith(block)) {
-                if (x - size <= block.getX()) {
-                    xSpeed = -Math.abs(xSpeed);
-                } else if (x + size >= block.getX() + block.getWidth()) {
-                    xSpeed = Math.abs(xSpeed);
-                } else if (y + size >= block.getY() + block.getHeight()) {
-                    ySpeed = Math.abs(ySpeed);
-                } else {
-                    ySpeed = -Math.abs(ySpeed);
-                }
-                hurtSound.play();
-                block.setDestroyed();
-            }
-        }
-    }
-
-
-    
+   
     public void checkCollision(Block block) {
         if (collidesWith(block)) {
             if (x - size <= block.getX()) {
