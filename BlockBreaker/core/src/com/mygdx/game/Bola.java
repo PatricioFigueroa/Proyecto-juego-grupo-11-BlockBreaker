@@ -14,21 +14,16 @@ public interface Bola {
 	    
 	    public int getY();
 	    
-	    public void draw(ShapeRenderer shape) ;
-	    
+	    public void draw(ShapeRenderer shape) ;	    
 
-	    public void update() ;
-	    
+	    public void update() ;	    
 
-	    public void checkCollision(Paddle paddle);
-	    
+	    public void checkCollision(Paddle paddle);	    
 
-	    public void checkCollision(Block block) ;
-	    
+	    public void checkCollision(Block block) ;	    
 
 	    public int getXSpeed();
 	    
-
 	    public int getYSpeed() ;
 	    
 	    public int getX() ;

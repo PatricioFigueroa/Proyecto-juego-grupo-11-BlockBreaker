@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -145,18 +147,18 @@ public class Control {
                 int bloqueY = b.getY(); // Obtiene la coordenada Y del bloque
                 blocks.remove(b);
 
-                PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
-                if (nuevaBola != null) {
-                	controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
-                        
-                        
-                    
+                Random random = new Random();
+                int numeroAleatorio = random.nextInt(100) + 1;
+                if (numeroAleatorio >= 0) {
+                    PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
+                    if (nuevaBola != null) {
+                        controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
+                    }
                 }
                 i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
         }
     }
-
 
     public void colisionPelota(ControlBolasEnJuego controlBolasEnJuego) {
         ball.checkCollision(pad); // Colisión de la bola original con el paddle

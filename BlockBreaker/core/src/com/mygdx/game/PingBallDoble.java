@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import java.util.ArrayList;
 
 public class PingBallDoble implements Bola {
     private int x;
@@ -12,7 +11,7 @@ public class PingBallDoble implements Bola {
     private int size;
     private int xSpeed;
     private int ySpeed;
-    private Color color = Color.WHITE;
+    private Color color = Color.YELLOW;
     private boolean estaQuieto;
     private Sound hurtSound;
 
@@ -118,7 +117,7 @@ public class PingBallDoble implements Bola {
 
         } else {
             // No hay colisión
-            color = Color.WHITE;
+            color = Color.YELLOW;
         }
     }
 
