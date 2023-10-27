@@ -70,22 +70,7 @@ public class Control {
         }
     }
 
-    /* Verificar si se fue la bola x abajo
-    public void verificarPelotar() {
-        if (ball.getY() < 0) {
-            vidas--;
 
-            if (vidas > 0) {
-                // Si quedan vidas, restablece la posición de la pelota
-                ball = new PingBall(pad);
-            } else {
-                // Si no quedan vidas, elimina todas las bolas en juego y realiza acciones de fin de juego
-                controlBolasEnJuego.();
-                // Realiza otras acciones de fin de juego aquí
-            }
-        }
-    }
-    */
     public void verificarPelotar() {
     	controlBolasEnJuego.clearBolasFueraDePantalla();
         if (ball.getY() < 0 && controlBolasEnJuego.isEmpty()) {
@@ -149,11 +134,15 @@ public class Control {
 
                 Random random = new Random();
                 int numeroAleatorio = random.nextInt(100) + 1;
-                if (numeroAleatorio >= 0) {
+                if (numeroAleatorio >= 50) {
+                	//se ve la propbabilidad de crear un poder, esta implementacion está adaptada solo a un poder
+                	
+                	
                     PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
                     if (nuevaBola != null) {
                         controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
                     }
+
                 }
                 i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
@@ -161,19 +150,11 @@ public class Control {
     }
 
     public void colisionPelota(ControlBolasEnJuego controlBolasEnJuego) {
+    	controlBolasEnJuego.colisionPelota(pad);
+    	for (Block block : blocks) 
+    		controlBolasEnJuego.colisionPelotaBloques(block);
         ball.checkCollision(pad); // Colisión de la bola original con el paddle
         
-        // Colisiones de las bolas dobles con el paddle
-        for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
-            bola.checkCollision(pad);
-         // Lógica de colisión de todas las bolas con los bloques
-            for (Block block : blocks) {
-                bola.checkCollision(block);
-            }
-        }
-
-        
-
     }
 
 
@@ -184,16 +165,11 @@ public class Control {
         batch.end();
     }
 
-    
-
-    
-
+    //se usa un getBolasEnJuego, que devuelve colección, solo para dibujo
     public void dibujarPelota(ControlBolasEnJuego controlBolasEnJuego) {
         shape.begin(ShapeRenderer.ShapeType.Filled);
         ball.draw(shape);
-        for (PingBallDoble bola : controlBolasEnJuego.getBolasEnJuego()) {
-            bola.draw(shape);
-        }
+        controlBolasEnJuego.dibujarPelotas(shape);
         shape.end();
     }
 

@@ -19,7 +19,9 @@ public class ControlPoder {
     public PingBallDoble activarPoder(PingBall so, int x, int y) {
         int numeroAleatorio = random.nextInt(100) + 1;
 
-        if (numeroAleatorio > 80) {
+        //en esta parte se distribuiran los poderes con distintos porcetanjes,
+        //en este caso mulitplesbolas tiene 60& de prob. de aparicion
+        if (numeroAleatorio > 40) {
             // Calcula las velocidades inversas
             int nuevoXSpeed = -so.getXSpeed();
             int nuevoYSpeed = -so.getYSpeed();

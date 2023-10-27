@@ -21,7 +21,9 @@ public abstract class Niveles {
     public abstract void initializeBlocks();
 
     public abstract void initializeLevelAssets();
-    
+   
+    //se utiliza para extraer los bloques, no para modificarlos
+    //, en el método InicializarJuegoPorNivel se crea una copia de este y ese se modifica
     public ArrayList<Block> getBlocks() {
         return blocks;
     }
