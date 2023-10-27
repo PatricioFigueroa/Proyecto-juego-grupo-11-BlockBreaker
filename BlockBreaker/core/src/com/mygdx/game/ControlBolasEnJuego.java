@@ -14,15 +14,7 @@ public class ControlBolasEnJuego {
     public void agregarBolaEnJuego(PingBallDoble bola) {
         bolasEnJuego.add(bola);
     }
-
-    public void imprimirTiposDeBolas() {
-        for (PingBallDoble bola : bolasEnJuego) {
-            System.out.println("Tipo de bola: " + bola.getClass().getName());
-        }
-    }
-
   
-
     public boolean isEmpty()
     {
     	return bolasEnJuego.isEmpty();

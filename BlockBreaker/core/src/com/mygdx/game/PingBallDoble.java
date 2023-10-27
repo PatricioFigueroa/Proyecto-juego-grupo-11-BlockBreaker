@@ -15,19 +15,6 @@ public class PingBallDoble implements Bola {
     private boolean estaQuieto;
     private Sound hurtSound;
 
-    public PingBallDoble(PingBall pingBall) {
-        this.x = pingBall.getX();
-        this.y = pingBall.getY();
-        this.size = pingBall.getSize();
-        this.xSpeed = -pingBall.getXSpeed(); // Invertir la velocidad en X
-        this.ySpeed = -pingBall.getYSpeed(); // Invertir la velocidad en Y
-        estaQuieto = pingBall.estaQuieto();
-        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-
-        System.out.println("Velocidad X inicial: " + xSpeed);
-        System.out.println("Velocidad Y inicial: " + ySpeed);
-    }
-
     public PingBallDoble(int x, int y, int xSpeed, int ySpeed) {
         this.x = x;
         this.y = y;
@@ -36,16 +23,10 @@ public class PingBallDoble implements Bola {
         this.ySpeed = (int) (ySpeed*(1.25));
         estaQuieto = false;
         this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-        System.out.println("Velocidad X inicial: " + xSpeed);
-        System.out.println("Velocidad Y inicial: " + ySpeed);
     }
 
     public boolean isOutOfBounds() {
         return y < 0; // Verifica si la bola ha caído fuera de la pantalla.
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public boolean estaQuieto() {
@@ -54,11 +35,6 @@ public class PingBallDoble implements Bola {
 
     public void setEstaQuieto(boolean bb) {
         estaQuieto = bb;
-    }
-
-    public void setXY(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 
     public int getY() {
@@ -151,18 +127,6 @@ public class PingBallDoble implements Bola {
         boolean intersectaX = (bb.getX() + bb.getWidth() >= x - size) && (bb.getX() <= x + size);
         boolean intersectaY = (bb.getY() + bb.getHeight() >= y - size) && (bb.getY() <= y + size);
         return intersectaX && intersectaY;
-    }
-
-    public int getXSpeed() {
-        return xSpeed;
-    }
-
-    public int getYSpeed() {
-        return ySpeed;
-    }
-
-    public int getX() {
-        return x;
     }
 }
 

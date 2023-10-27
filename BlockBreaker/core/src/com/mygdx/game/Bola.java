@@ -10,8 +10,6 @@ public interface Bola {
 	   
 	    public void setEstaQuieto(boolean bb);
 	    
-	    public void setXY(int x, int y);
-	    
 	    public int getY();
 	    
 	    public void draw(ShapeRenderer shape) ;	    
@@ -21,11 +19,4 @@ public interface Bola {
 	    public void checkCollision(Paddle paddle);	    
 
 	    public void checkCollision(Block block) ;	    
-
-	    public int getXSpeed();
-	    
-	    public int getYSpeed() ;
-	    
-	    public int getX() ;
-	    
 }
