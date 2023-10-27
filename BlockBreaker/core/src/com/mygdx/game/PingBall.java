@@ -3,9 +3,11 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PingBall implements Bola {
+public class PingBall implements DibujarElementos, ColisionElementos, MovimientoElementos {
 	    private int x;
 	    private int y;
 	    private int size;
@@ -14,8 +16,7 @@ public class PingBall implements Bola {
 	    private Color color = Color.WHITE;
 	    private boolean estaQuieto;
 	    private Sound hurtSound;
-	    
-	    
+	    private Sprite sprite;
 	    
 	    //pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11
 	    
@@ -27,6 +28,8 @@ public class PingBall implements Bola {
 	        this.ySpeed = 14;
 	        estaQuieto = true;
 	        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
+	        sprite = new Sprite(new Texture("fondo2.png"));
+	        sprite.setBounds(x, y, size, size);
 	    }
     
 

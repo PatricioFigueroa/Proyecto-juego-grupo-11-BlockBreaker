@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PingBallDoble implements Bola {
+public class PingBallDoble implements DibujarElementos, ColisionElementos {
     private int x;
     private int y;
     private int size;
