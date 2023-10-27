@@ -167,10 +167,10 @@ public class Control {
 
     //se usa un getBolasEnJuego, que devuelve colección, solo para dibujo
     public void dibujarPelota(ControlBolasEnJuego controlBolasEnJuego) {
-        shape.begin(ShapeRenderer.ShapeType.Filled);
-        ball.draw(shape);
-        controlBolasEnJuego.dibujarPelotas(shape);
-        shape.end();
+    	batch.begin();
+        ball.draw(batch);
+        controlBolasEnJuego.dibujarPelotas(batch);
+        batch.end();
     }
 
     public int getVidas() {

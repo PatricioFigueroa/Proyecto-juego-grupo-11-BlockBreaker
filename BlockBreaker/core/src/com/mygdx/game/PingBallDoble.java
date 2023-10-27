@@ -3,6 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class PingBallDoble implements DibujarElementos, ColisionElementos {
@@ -11,9 +14,9 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
     private int size;
     private int xSpeed;
     private int ySpeed;
-    private Color color = Color.YELLOW;
     private boolean estaQuieto;
     private Sound hurtSound;
+    private Sprite sprite;
 
     public PingBallDoble(int x, int y, int xSpeed, int ySpeed) {
         this.x = x;
@@ -23,6 +26,8 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
         this.ySpeed = (int) (ySpeed*(1.25));
         estaQuieto = false;
         this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
+        sprite = new Sprite(new Texture("bolaAmarillaNormal.png"));
+        sprite.setBounds(x, y, size, size);
     }
 
     public boolean isOutOfBounds() {
@@ -41,10 +46,8 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
         return y;
     }
 
-    public void draw(ShapeRenderer shape) {
-        shape.setColor(color);
-        shape.circle(x, y, size);
-        update();
+    public void draw(SpriteBatch batch) {
+    	sprite.draw(batch);
     }
 
     public void update() {
@@ -72,7 +75,6 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
         boolean collidesWithPaddle = collidesWith(paddle);
 
         if (collidesWithPaddle) {
-            color = Color.BLUE;
 
             // Reajusta la posición de la bola para evitar que quede dentro del paddle
             if (x - size <= paddle.getX()) {
@@ -91,9 +93,6 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
             	ySpeed = -ySpeed;
             }
 
-        } else {
-            // No hay colisión
-            color = Color.YELLOW;
         }
     }
 

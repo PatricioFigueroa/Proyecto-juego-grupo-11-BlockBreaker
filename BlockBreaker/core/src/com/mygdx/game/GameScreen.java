@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() * 1.08f, Gdx.graphics.getHeight());
 
-        fondo = new Texture("fondo2.png");
+        fondo = new Texture("fondoJuego.png");
         fondoReal = new Sprite(fondo);
         spriteBatch = new SpriteBatch();
 

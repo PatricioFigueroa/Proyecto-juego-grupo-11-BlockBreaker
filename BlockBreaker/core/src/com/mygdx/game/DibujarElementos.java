@@ -1,10 +1,8 @@
 package com.mygdx.game;
 
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
- 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface DibujarElementos {
-	    public void draw(ShapeRenderer shape) ;	         
+	    public void draw(SpriteBatch batch) ;	         
 }

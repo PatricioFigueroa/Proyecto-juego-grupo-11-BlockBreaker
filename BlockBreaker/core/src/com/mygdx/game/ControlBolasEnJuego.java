@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class ControlBolasEnJuego {
     private ArrayList<PingBallDoble> bolasEnJuego;
@@ -30,10 +30,10 @@ public class ControlBolasEnJuego {
 	    }
     }
     
-    public void dibujarPelotas(ShapeRenderer shape)
+    public void dibujarPelotas(SpriteBatch batch)
     {
     	for (PingBallDoble bola : bolasEnJuego) {
-            bola.draw(shape);
+            bola.draw(batch);
         }
     }
     

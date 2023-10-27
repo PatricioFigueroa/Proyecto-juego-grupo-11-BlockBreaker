@@ -35,7 +35,7 @@ public class Nivel2 extends Niveles {
             y -= blockHeight + 10;
             for (int j = 0; j < width; j++) {
                 if (customBlockLayout[i][j] == 1) {
-                	Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.jpg"));
+                	Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png"));
                     blocks.add(block);
                 }
             }

@@ -25,7 +25,7 @@ public class PausaScreen implements Screen {
         this.batch = game.getBatch();
         this.font = game.getFont();
         
-		fondoPausa = new Sprite(new Texture("pausa.png"));
+		fondoPausa = new Sprite(new Texture("fondoPausa.png"));
 		spriteBatch = new SpriteBatch();
         spriteBatch = new SpriteBatch();
 		camera = new OrthographicCamera();

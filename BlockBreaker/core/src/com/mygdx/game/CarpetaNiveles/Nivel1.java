@@ -34,7 +34,7 @@ public class Nivel1 extends Niveles {
 	        for (int j = 0; j < 13; j++) {
 	            if (invertedCenteredTriangle[i][j] == 1) // poner en la condicion el array
 	            {
-                    Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.jpg"));
+                    Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png"));
                     blocks.add(block);
 	            }
 	        }

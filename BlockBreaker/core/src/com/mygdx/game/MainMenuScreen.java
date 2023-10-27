@@ -27,7 +27,7 @@ public class MainMenuScreen implements Screen {
         this.batch = game.getBatch();
         this.font = game.getFont();
 		selectedOption = 0; // Inicialmente seleccionar la primera opción
-		fondoMenu = new Sprite(new Texture("menuInicial.png"));
+		fondoMenu = new Sprite(new Texture("fondoMenuInicial.png"));
 		spriteBatch = new SpriteBatch();
 		
 		camera = new OrthographicCamera();

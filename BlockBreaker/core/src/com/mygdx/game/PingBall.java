@@ -2,10 +2,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class PingBall implements DibujarElementos, ColisionElementos, MovimientoElementos {
 	    private int x;
@@ -13,7 +12,6 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 	    private int size;
 	    private int xSpeed;
 	    private int ySpeed;
-	    private Color color = Color.WHITE;
 	    private boolean estaQuieto;
 	    private Sound hurtSound;
 	    private Sprite sprite;
@@ -28,10 +26,9 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 	        this.ySpeed = 14;
 	        estaQuieto = true;
 	        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-	        sprite = new Sprite(new Texture("fondo2.png"));
+	        sprite = new Sprite(new Texture("bolaBlancaNormal.png"));
 	        sprite.setBounds(x, y, size, size);
 	    }
-    
 
 	    public boolean estaQuieto() {
 	    	return estaQuieto;
@@ -48,16 +45,13 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 
 	    public int getY() {return y;}
 	    
-	    public void draw(ShapeRenderer shape){
-
-	        shape.setColor(color);
-	        shape.circle(x, y, size);
+	    public void draw(SpriteBatch batch){
+	    	sprite.draw(batch);
 	    }
 	    
 	    public void update() {
-
 	        if (estaQuieto) return;
-
+	        
 	        x += xSpeed;
 	        y += ySpeed;
 
@@ -79,7 +73,6 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 	        boolean collidesWithPaddle = collidesWith(paddle);
 
 	        if (collidesWithPaddle) {
-	            color = Color.BLUE;
 
 	            // Reajusta la posición de la bola para evitar que quede dentro del paddle
 	            if (x - size <= paddle.getX()) {
@@ -98,9 +91,6 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 	            	ySpeed = -ySpeed;
 	            }
 
-	        } else {
-	            // No hay colisión
-	            color = Color.WHITE;
 	        }
 	    }
 
