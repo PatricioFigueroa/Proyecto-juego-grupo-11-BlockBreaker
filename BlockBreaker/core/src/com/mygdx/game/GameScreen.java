@@ -112,6 +112,8 @@ public class GameScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) pause();
 
         // Dibujar pelota
+        controlBolasEnJuego.update(); // Actualiza las pelotas
+        // Dibujar pelotas después de la actualización
         controlador.dibujarPelota(controlBolasEnJuego);
         // Verificar colisiones de la pelota
         

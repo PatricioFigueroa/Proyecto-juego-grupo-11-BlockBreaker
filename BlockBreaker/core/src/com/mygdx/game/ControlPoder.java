@@ -21,7 +21,7 @@ public class ControlPoder {
 
         //en esta parte se distribuiran los poderes con distintos porcetanjes,
         //en este caso mulitplesbolas tiene 60& de prob. de aparicion
-        if (numeroAleatorio > 40) {
+        if (numeroAleatorio > 90) {
             // Calcula las velocidades inversas
             int nuevoXSpeed = -so.getXSpeed();
             int nuevoYSpeed = -so.getYSpeed();

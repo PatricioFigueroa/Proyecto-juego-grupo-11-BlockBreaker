@@ -27,8 +27,8 @@ public class GameOverScreen implements Screen {
 		spriteBatch = new SpriteBatch();
         spriteBatch = new SpriteBatch();
         
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	@Override
 	public void show() {
@@ -47,12 +47,12 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		ScreenUtils.clear(0, 0, 0.2f, 1);
+		ScreenUtils.clear(0, 0, 0, 0);
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
-
+		renderBackground();
+		
 		batch.begin();
-		font.draw(batch, "GAME OVER ", 100, 200);
 		font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 100);
 		batch.end();
 		

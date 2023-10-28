@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-public class PingBallDoble implements DibujarElementos, ColisionElementos {
+public class PingBallDoble implements Bola{
     private int x;
     private int y;
     private int size;
@@ -21,20 +21,22 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
     public PingBallDoble(int x, int y, int xSpeed, int ySpeed) {
         this.x = x;
         this.y = y;
-        this.size = 10;
-        this.xSpeed = (int) (xSpeed*(1.25));
-        this.ySpeed = (int) (ySpeed*(1.25));
+        this.size = 20;
+        this.xSpeed = (int) (xSpeed * (1.25));
+        this.ySpeed = (int) (ySpeed * (1.25));
         estaQuieto = false;
         this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-        sprite = new Sprite(new Texture("bolaAmarillaNormal.png"));
+        sprite = new Sprite(new Texture("bolaAmarillaHD.png"));
         sprite.setBounds(x, y, size, size);
     }
+
 
     public boolean isOutOfBounds() {
         return y < 0; // Verifica si la bola ha caído fuera de la pantalla.
     }
 
     public boolean estaQuieto() {
+    	sprite.setPosition(x, y);
         return estaQuieto;
     }
 
@@ -47,12 +49,14 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
     }
 
     public void draw(SpriteBatch batch) {
+    	
     	sprite.draw(batch);
     }
 
     public void update() {
+    	sprite.setPosition(x, y);
         if (estaQuieto) return;
-
+        
         x += xSpeed;
         y += ySpeed;
 
@@ -72,6 +76,7 @@ public class PingBallDoble implements DibujarElementos, ColisionElementos {
     }
     
     public void checkCollision(Paddle paddle) {
+    	
         boolean collidesWithPaddle = collidesWith(paddle);
 
         if (collidesWithPaddle) {

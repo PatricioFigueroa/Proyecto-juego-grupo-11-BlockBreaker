@@ -29,6 +29,12 @@ public class ControlBolasEnJuego {
 	        
 	    }
     }
+    public void update() {
+        // Actualiza la posición de las bolas y realiza cualquier otro cálculo necesario
+        for (PingBallDoble bola : bolasEnJuego) {
+            bola.update();
+        }
+    }
     
     public void dibujarPelotas(SpriteBatch batch)
     {

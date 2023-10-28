@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class PingBall implements DibujarElementos, ColisionElementos, MovimientoElementos {
+public class PingBall implements Bola {
 	    private int x;
 	    private int y;
 	    private int size;
@@ -21,16 +21,17 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 	    public PingBall(Paddle pad) {
 	        this.x = pad.getX()+pad.getWidth()/2-5;
 	        this.y = pad.getY()+pad.getHeight()+11;
-	        this.size = 10;
+	        this.size = 20;
 	        this.xSpeed = 10;
 	        this.ySpeed = 14;
 	        estaQuieto = true;
 	        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-	        sprite = new Sprite(new Texture("bolaBlancaNormal.png"));
+	        sprite = new Sprite(new Texture("bolaBlancaHD.png"));
 	        sprite.setBounds(x, y, size, size);
 	    }
 
 	    public boolean estaQuieto() {
+	    	sprite.setPosition(x, y);
 	    	return estaQuieto;
 	    }
 
@@ -50,6 +51,8 @@ public class PingBall implements DibujarElementos, ColisionElementos, Movimiento
 	    }
 	    
 	    public void update() {
+	    	sprite.setPosition(x, y);
+
 	        if (estaQuieto) return;
 	        
 	        x += xSpeed;
