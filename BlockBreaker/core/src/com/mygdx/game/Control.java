@@ -6,7 +6,6 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.CarpetaNiveles.*;
 
 public class Control {
@@ -18,7 +17,6 @@ public class Control {
     private ControlPoder controlPoder;
     private PingBall ball;
     private Paddle pad;
-    private ShapeRenderer shape;
     private SpriteBatch batch;
     private ControlBolasEnJuego controlBolasEnJuego;
 
@@ -35,7 +33,6 @@ public class Control {
             controlPoder = new ControlPoder(controlBolasEnJuego);
 
             batch = new SpriteBatch();
-            shape = new ShapeRenderer();
             pad = new Paddle();
             ball = new PingBall(pad);
             blocks = new ArrayList<>();

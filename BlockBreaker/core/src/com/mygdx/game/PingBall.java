@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.Bola;
 
 public class PingBall implements Bola {
 	    private int x;
@@ -30,10 +31,12 @@ public class PingBall implements Bola {
 	        sprite.setBounds(x, y, size, size);
 	    }
 
-	    public boolean estaQuieto() {
+	    @Override
+		public boolean estaQuieto() {
+			// TODO Auto-generated method stub
 	    	sprite.setPosition(x, y);
 	    	return estaQuieto;
-	    }
+		}
 
 	    public void setEstaQuieto(boolean bb) {
 	    	estaQuieto=bb;
@@ -72,8 +75,11 @@ public class PingBall implements Bola {
 	        }
 	    }
 	    
-	    public void checkCollision(Paddle paddle) {
-	        boolean collidesWithPaddle = collidesWith(paddle);
+	    
+	    @Override
+		public void checkCollision(Paddle paddle) {
+			// TODO Auto-generated method stub
+			boolean collidesWithPaddle = collidesWith(paddle);
 
 	        if (collidesWithPaddle) {
 
@@ -96,7 +102,6 @@ public class PingBall implements Bola {
 
 	        }
 	    }
-
 	    
 	    
 	    private boolean collidesWith(Paddle paddle) {
@@ -144,4 +149,14 @@ public class PingBall implements Bola {
 		public int getYSpeed() {
 			return ySpeed;
 		}
-	}
+
+		@Override
+		public int getX() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+
+
+		
+}

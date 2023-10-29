@@ -3,8 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.DibujarElementos;
 
-public class Block {
+public class Block implements DibujarElementos{
     private int x,y,width,height;
     private boolean destroyed;
     private Sprite sprite;
@@ -20,11 +21,6 @@ public class Block {
   
     }
     
-    public void draw(SpriteBatch batch) {
-        if (!destroyed) {
-            sprite.draw(batch);
-        }
-    }
     
     public boolean getDestroyed()
     {
@@ -55,4 +51,14 @@ public class Block {
     {
     	return this.height;
     }
+
+
+	@Override
+	public void draw(SpriteBatch batch) {
+		// TODO Auto-generated method stub
+        if (!destroyed) {
+            sprite.draw(batch);
+        }
+		
+	}
 }

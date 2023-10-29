@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.DibujarElementos;
 
-public class Paddle {
+public class Paddle implements DibujarElementos{
     private int x;
     private int y;
     private int width;
@@ -25,7 +26,9 @@ public class Paddle {
 	public int getWidth() {return width;}
 	public int getHeight() {return height;}
 
-    public void draw(SpriteBatch batch) {
+	@Override
+	public void draw(SpriteBatch batch) {
+		// TODO Auto-generated method stub
 		batch.draw(texture, x, y, width, height);
 		
         int x2 = x;
@@ -37,7 +40,10 @@ public class Paddle {
         if (x2 > 0 && x2 + width < Gdx.graphics.getWidth()) {
             x = x2;
         }
-    }
+		
+	}
+
+
     
     
 }

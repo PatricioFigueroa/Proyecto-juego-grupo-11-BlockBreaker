@@ -2,11 +2,10 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.CarpetaInterfaces.Bola;
 
 public class PingBallDoble implements Bola{
     private int x;
@@ -132,5 +131,12 @@ public class PingBallDoble implements Bola{
         boolean intersectaY = (bb.getY() + bb.getHeight() >= y - size) && (bb.getY() <= y + size);
         return intersectaX && intersectaY;
     }
+
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
 
