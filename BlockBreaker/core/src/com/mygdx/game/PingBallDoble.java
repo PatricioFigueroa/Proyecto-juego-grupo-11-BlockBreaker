@@ -21,8 +21,8 @@ public class PingBallDoble implements Bola{
         this.x = x;
         this.y = y;
         this.size = 20;
-        this.xSpeed = (int) (xSpeed * (1.25));
-        this.ySpeed = (int) (ySpeed * (1.25));
+        this.xSpeed = (int) (xSpeed * (1.2));
+        this.ySpeed = (int) (ySpeed * (1.2));
         estaQuieto = false;
         this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
         sprite = new Sprite(new Texture("bolaAmarillaHD.png"));

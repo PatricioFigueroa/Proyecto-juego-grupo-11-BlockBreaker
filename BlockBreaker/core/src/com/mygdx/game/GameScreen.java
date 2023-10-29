@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,9 +24,14 @@ public class GameScreen implements Screen {
 
     private Control controlador;
     private ControlBolasEnJuego controlBolasEnJuego;
- 
+    private Music music;
+   
 
     public GameScreen(final BlockBreakerMenu game) {
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("cancion juego.mp3"));
+    	music.setLooping(true);
+    	music.play();
+    	    
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
@@ -94,6 +100,8 @@ public class GameScreen implements Screen {
         // Verificar game over
         if (controlador.isGameOver()) {
             game.setScreen(new GameOverScreen(game));
+          //Destruir 
+    	    music.dispose();
             dispose();
         }
 
@@ -109,8 +117,10 @@ public class GameScreen implements Screen {
         controlador.actualizarBloques(controlBolasEnJuego);
         
         // Pausar juego
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) pause();
-
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) 
+        	pause();
+    
+        
         // Dibujar pelota
         controlBolasEnJuego.update(); // Actualiza las pelotas
         // Dibujar pelotas después de la actualización
