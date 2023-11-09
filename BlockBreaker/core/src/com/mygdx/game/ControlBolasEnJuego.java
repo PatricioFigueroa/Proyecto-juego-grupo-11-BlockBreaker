@@ -1,69 +1,76 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.Bola;
 
 public class ControlBolasEnJuego {
-    private ArrayList<PingBallDoble> bolasEnJuego;
+    private ArrayList<Bola> bolasEnJuego; // Utiliza la interfaz Bola
 
     public ControlBolasEnJuego() {
-        bolasEnJuego = new ArrayList<PingBallDoble>();
+        bolasEnJuego = new ArrayList<Bola>();
+        
     }
 
-    public void agregarBolaEnJuego(PingBallDoble bola) {
+    public void agregarBolaEnJuego(Bola bola) {
         bolasEnJuego.add(bola);
     }
-  
-    public boolean isEmpty()
-    {
-    	return bolasEnJuego.isEmpty();
+
+    public boolean isEmpty() {
+        return bolasEnJuego.isEmpty();
     }
-    
-    public void colisionPelota(Paddle pad){
-	    
-	    // Colisiones de las bolas dobles con el paddle
-	    for (PingBallDoble bola : bolasEnJuego) {
-	        bola.checkCollision(pad);
-	     // Lógica de colisión de todas las bolas con los bloques
-	        
-	    }
+
+    public void colisionPelota(Paddle pad) {
+        for (Bola bola : bolasEnJuego) { // Utiliza la interfaz Bola
+            bola.checkCollision(pad);
+            // Lógica de colisión de todas las bolas con el paddle
+        }
     }
+
     public void update() {
         // Actualiza la posición de las bolas y realiza cualquier otro cálculo necesario
-        for (PingBallDoble bola : bolasEnJuego) {
+        for (Bola bola : bolasEnJuego) { // Utiliza la interfaz Bola
             bola.update();
         }
     }
-    
-    public void dibujarPelotas(SpriteBatch batch)
-    {
-    	for (PingBallDoble bola : bolasEnJuego) {
+
+    public void dibujarPelotas(SpriteBatch batch) {
+        for (Bola bola : bolasEnJuego) {
+        	// Utiliza la interfaz Bola
             bola.draw(batch);
         }
     }
-    
-    public void colisionPelotaBloques( Block block)
-    {
-    	for (PingBallDoble bola : bolasEnJuego) 
-    		bola.checkCollision(block);
+
+    public void colisionPelotaBloques(Block block) {
+        for (Bola bola : bolasEnJuego) { // Utiliza la interfaz Bola
+            bola.checkCollision(block);
+        }
     }
-    
+
     public void clear() {
         bolasEnJuego.clear();
     }
 
     public void clearBolasFueraDePantalla() {
-        ArrayList<PingBallDoble> bolasParaEliminar = new ArrayList<>();
-        
-        for (PingBallDoble bola : bolasEnJuego) {
+        ArrayList<Bola> bolasParaEliminar = new ArrayList<>();
+
+        for (Bola bola : bolasEnJuego) {
             if (bola.getY() <= 0) {
                 bolasParaEliminar.add(bola);
             }
         }
-        
+
         bolasEnJuego.removeAll(bolasParaEliminar);
     }
 
-    
+    public void crearNuevaBola(Paddle pad) {
+        Bola nuevaBola = new PingBall(pad);
+        agregarBolaEnJuego(nuevaBola);
+    }
+
+    public void iniciarBolas() {
+        for (Bola bola : bolasEnJuego) {
+            bola.setEstaQuieto(false);
+        }
+    }
 }

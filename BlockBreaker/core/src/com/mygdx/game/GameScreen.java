@@ -21,17 +21,14 @@ public class GameScreen implements Screen {
     private Texture fondo;
     private Sprite fondoReal;
     private SpriteBatch spriteBatch;
-
     private Control controlador;
-    private ControlBolasEnJuego controlBolasEnJuego;
     private Music music;
-   
 
     public GameScreen(final BlockBreakerMenu game) {
         Music music = Gdx.audio.newMusic(Gdx.files.internal("cancion juego.mp3"));
-    	music.setLooping(true);
-    	music.play();
-    	    
+        music.setLooping(true);
+        music.play();
+
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
@@ -45,10 +42,6 @@ public class GameScreen implements Screen {
 
         // Inicializa el controlador
         controlador = new Control();
-        
-        controlBolasEnJuego = new ControlBolasEnJuego();
-        
-
     }
 
     public void dibujaTextos() {
@@ -76,7 +69,6 @@ public class GameScreen implements Screen {
         // TODO Auto-generated method stub
     }
 
-
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -87,7 +79,7 @@ public class GameScreen implements Screen {
         // Imagen de fondo
         renderBackground();
 
-        //Dibujar Tabla
+        // Dibujar Tabla
         controlador.dibujarTabla();
 
         // Monitorear inicio del juego
@@ -96,12 +88,11 @@ public class GameScreen implements Screen {
         // Verificar si se fue la bola x abajo
         controlador.verificarPelotar();
 
-
         // Verificar game over
         if (controlador.isGameOver()) {
             game.setScreen(new GameOverScreen(game));
-          //Destruir 
-    	    music.dispose();
+            // Destruir
+            music.dispose();
             dispose();
         }
 
@@ -114,20 +105,17 @@ public class GameScreen implements Screen {
         controlador.dibujarBloques();
 
         // Actualizar estado de los bloques
-        controlador.actualizarBloques(controlBolasEnJuego);
-        
+        controlador.actualizarBloques();
+
         // Pausar juego
-        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) 
-        	pause();
-    
-        
+        if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
+            pause();
+
         // Dibujar pelota
-        controlBolasEnJuego.update(); // Actualiza las pelotas
-        // Dibujar pelotas después de la actualización
-        controlador.dibujarPelota(controlBolasEnJuego);
+        controlador.dibujarPelota();
+
         // Verificar colisiones de la pelota
-        
-        controlador.colisionPelota(controlBolasEnJuego);
+        controlador.colisionPelota();
 
         dibujaTextos();
     }
@@ -158,4 +146,3 @@ public class GameScreen implements Screen {
         // TODO Auto-generated method stub
     }
 }
-

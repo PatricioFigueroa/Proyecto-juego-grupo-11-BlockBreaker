@@ -2,10 +2,10 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 import java.util.Random;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.Bola;
 import com.mygdx.game.CarpetaNiveles.*;
 
 public class Control {
@@ -15,33 +15,26 @@ public class Control {
     private int puntaje = 0;
     private int indiceNivel;
     private ControlPoder controlPoder;
-    private PingBall ball;
     private Paddle pad;
     private SpriteBatch batch;
     private ControlBolasEnJuego controlBolasEnJuego;
 
-     public Control() {
+    public Control() {
         niveles = new ArrayList<>();
-            indiceNivel = 0;
-            niveles.add(new Nivel1(1));
-            niveles.add(new Nivel2(2));
+        indiceNivel = 0;
+        niveles.add(new Nivel1(1));
+        niveles.add(new Nivel2(2));
 
-            // Inicializa controlBolasEnJuego
-            controlBolasEnJuego = new ControlBolasEnJuego();
+        // Inicializa controlBolasEnJuego
+        controlBolasEnJuego = new ControlBolasEnJuego();
 
-            // Crea una instancia de ControlPoder y pasa controlBolasEnJuego
-            controlPoder = new ControlPoder(controlBolasEnJuego);
-
-            batch = new SpriteBatch();
-            pad = new Paddle();
-            ball = new PingBall(pad);
-            blocks = new ArrayList<>();
-
-            // Inicializa el nivel 1
-            InicializarJuegoPorNivel();
-        }    
-    
-
+        // Crea una instancia de ControlPoder y pasa controlBolasEnJuego
+        controlPoder = new ControlPoder(controlBolasEnJuego);
+        batch = new SpriteBatch();
+        pad = new Paddle();
+        // Inicializa el nivel 1
+        InicializarJuegoPorNivel();
+    }
 
     public void avanzarNivel() {
         if (indiceNivel < niveles.size() - 1) {
@@ -57,35 +50,32 @@ public class Control {
         return null;
     }
 
-    // Monitorear inicio del juego
+ // Monitorear inicio del juego
     public void monitorearInico() {
-        if (ball.estaQuieto()) {
-            ball.setXY(pad.getX() + pad.getWidth() / 2 - 5, pad.getY() + pad.getHeight() + 11);
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
+        if (controlBolasEnJuego.isEmpty()) {
+            controlBolasEnJuego.crearNuevaBola(pad);
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            controlBolasEnJuego.iniciarBolas();
         } else {
-            ball.update();
+            controlBolasEnJuego.update(); // Mueve la pelota cuando no está quieta
         }
     }
 
 
     public void verificarPelotar() {
-    	controlBolasEnJuego.clearBolasFueraDePantalla();
-        if (ball.getY() < 0 && controlBolasEnJuego.isEmpty()) {
+        controlBolasEnJuego.clearBolasFueraDePantalla();
+        if (controlBolasEnJuego.isEmpty()) {
             vidas--;
 
             if (vidas > 0) {
-                // Si quedan vidas, restablece la posición de la pelota principal
-                ball = new PingBall(pad);
-            } else {
-                // Si no quedan vidas, realiza acciones de fin de juego
+                // Si quedan vidas, realiza acciones de fin de juego
                 // Aquí puedes mostrar un mensaje de "Juego terminado" o realizar otras acciones necesarias
                 // También puedes llamar a controlBolasEnJuego.clear() si deseas eliminar todas las bolas en juego
             }
         }
     }
-
-
-
 
     // Verificar game over
     public boolean isGameOver() {
@@ -98,9 +88,7 @@ public class Control {
         if (currentLevel != null) {
             currentLevel.initializeBlocks();
             ArrayList<Block> levelBlocks = currentLevel.getBlocks();
-            blocks.clear();
-            blocks.addAll(levelBlocks);
-            ball = new PingBall(pad);
+            blocks = new ArrayList<>(levelBlocks);
         }
     }
 
@@ -114,13 +102,13 @@ public class Control {
         batch.begin();
         for (Block b : blocks) {
             b.draw(batch);
-            ball.checkCollision(b);
+            controlBolasEnJuego.colisionPelotaBloques(b);
         }
         batch.end();
     }
 
     // Actualizar bloques
-    public void actualizarBloques(ControlBolasEnJuego controlBolasEnJuego) {
+    public void actualizarBloques() {
         for (int i = 0; i < blocks.size(); i++) {
             Block b = blocks.get(i);
             if (b.getDestroyed()) {
@@ -132,29 +120,22 @@ public class Control {
                 Random random = new Random();
                 int numeroAleatorio = random.nextInt(100) + 1;
                 if (numeroAleatorio >= 50) {
-                	//se ve la propbabilidad de crear un poder, esta implementacion está adaptada solo a un poder
-                	
-                	
-                    PingBallDoble nuevaBola = controlPoder.activarPoder(ball, bloqueX, bloqueY);
+                    // Se ve la probabilidad de crear un poder, esta implementación está adaptada solo a un poder
+                    Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY);
                     if (nuevaBola != null) {
                         controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
                     }
-
                 }
                 i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
         }
     }
 
-    public void colisionPelota(ControlBolasEnJuego controlBolasEnJuego) {
-    	controlBolasEnJuego.colisionPelota(pad);
-    	for (Block block : blocks) 
-    		controlBolasEnJuego.colisionPelotaBloques(block);
-        ball.checkCollision(pad); // Colisión de la bola original con el paddle
-        
+    public void colisionPelota() {
+        controlBolasEnJuego.colisionPelota(pad);
+        for (Block block : blocks)
+            controlBolasEnJuego.colisionPelotaBloques(block);
     }
-
-
 
     public void dibujarTabla() {
         batch.begin();
@@ -162,10 +143,9 @@ public class Control {
         batch.end();
     }
 
-    //se usa un getBolasEnJuego, que devuelve colección, solo para dibujo
-    public void dibujarPelota(ControlBolasEnJuego controlBolasEnJuego) {
-    	batch.begin();
-        ball.draw(batch);
+    // Se usa un getBolasEnJuego, que devuelve una colección, solo para dibujo
+    public void dibujarPelota() {
+        batch.begin();
         controlBolasEnJuego.dibujarPelotas(batch);
         batch.end();
     }
