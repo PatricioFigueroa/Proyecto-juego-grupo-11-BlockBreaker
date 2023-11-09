@@ -25,9 +25,10 @@ public class GameScreen implements Screen {
     private Music music;
 
     public GameScreen(final BlockBreakerMenu game) {
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("cancion juego.mp3"));
-        music.setLooping(true);
-        music.play();
+        this.music = Gdx.audio.newMusic(Gdx.files.internal("cancion juego.mp3"));
+        this.music.setLooping(true);
+        this.music.setVolume(0.1f); 
+        this.music.play();
 
         this.game = game;
         this.batch = game.getBatch();
@@ -90,10 +91,11 @@ public class GameScreen implements Screen {
 
         // Verificar game over
         if (controlador.isGameOver()) {
-            game.setScreen(new GameOverScreen(game));
             // Destruir
             music.dispose();
             dispose();
+            game.setScreen(new GameOverScreen(game));
+       
         }
 
         // Verificar si el nivel se terminó

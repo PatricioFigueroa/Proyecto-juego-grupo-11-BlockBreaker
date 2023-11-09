@@ -156,7 +156,5 @@ public class PingBall implements Bola {
 			return 0;
 		}
 
-
-
 		
 }

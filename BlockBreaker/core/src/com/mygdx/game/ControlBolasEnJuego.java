@@ -1,6 +1,9 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CarpetaInterfaces.Bola;
 
@@ -9,7 +12,6 @@ public class ControlBolasEnJuego {
 
     public ControlBolasEnJuego() {
         bolasEnJuego = new ArrayList<Bola>();
-        
     }
 
     public void agregarBolaEnJuego(Bola bola) {
@@ -73,4 +75,20 @@ public class ControlBolasEnJuego {
             bola.setEstaQuieto(false);
         }
     }
+    
+
+    public void moverPelotaConPaddle(Paddle pad) {
+        PingBall ball = (PingBall) bolasEnJuego.get(0);
+        if (ball.estaQuieto()) {
+            ball.setXY(pad.getX() + pad.getWidth() / 2 - 5, pad.getY() + pad.getHeight() + 11);
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
+        }
+    }
+
+    public boolean estaQuieto()
+    {
+        PingBall ball = (PingBall) bolasEnJuego.get(0);
+        return ball.estaQuieto();
+    }
+    
 }

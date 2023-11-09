@@ -18,13 +18,14 @@ public class Control {
     private Paddle pad;
     private SpriteBatch batch;
     private ControlBolasEnJuego controlBolasEnJuego;
+    private boolean EmpezoJuego;
 
     public Control() {
         niveles = new ArrayList<>();
         indiceNivel = 0;
         niveles.add(new Nivel1(1));
         niveles.add(new Nivel2(2));
-
+        EmpezoJuego = false;
         // Inicializa controlBolasEnJuego
         controlBolasEnJuego = new ControlBolasEnJuego();
 
@@ -55,20 +56,29 @@ public class Control {
         if (controlBolasEnJuego.isEmpty()) {
             controlBolasEnJuego.crearNuevaBola(pad);
         }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            controlBolasEnJuego.iniciarBolas();
-        } else {
+    
+        if(EmpezoJuego == false)
+        {
+        	if(controlBolasEnJuego.estaQuieto())
+            {
+                controlBolasEnJuego.moverPelotaConPaddle(pad);
+                if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                    controlBolasEnJuego.iniciarBolas();
+                    EmpezoJuego = true;
+                } 
+            }
+        }
+        else
+        {
             controlBolasEnJuego.update(); // Mueve la pelota cuando no está quieta
         }
     }
-
 
     public void verificarPelotar() {
         controlBolasEnJuego.clearBolasFueraDePantalla();
         if (controlBolasEnJuego.isEmpty()) {
             vidas--;
-
+            EmpezoJuego = false;
             if (vidas > 0) {
                 // Si quedan vidas, realiza acciones de fin de juego
                 // Aquí puedes mostrar un mensaje de "Juego terminado" o realizar otras acciones necesarias

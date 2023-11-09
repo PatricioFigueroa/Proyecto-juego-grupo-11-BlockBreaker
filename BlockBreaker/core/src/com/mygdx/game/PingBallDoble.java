@@ -54,51 +54,46 @@ public class PingBallDoble implements Bola{
 
     public void update() {
     	sprite.setPosition(x, y);
+
         if (estaQuieto) return;
         
         x += xSpeed;
         y += ySpeed;
 
-        // Lógica para rebotar en los bordes de la pantalla
         if (x - size < 0) {
-            x = size;
-            xSpeed = Math.abs(xSpeed);
+            x = size; // Ajusta la posición de la bola para evitar que pase por el borde izquierdo
+            xSpeed = Math.abs(xSpeed); // Cambia la dirección en X
         } else if (x + size > Gdx.graphics.getWidth()) {
-            x = Gdx.graphics.getWidth() - size;
-            xSpeed = -Math.abs(xSpeed);
+            x = Gdx.graphics.getWidth() - size; // Ajusta la posición de la bola para evitar que pase por el borde derecho
+            xSpeed = -Math.abs(xSpeed); // Cambia la dirección en X
         }
 
         if (y + size > Gdx.graphics.getHeight()) {
-            y = Gdx.graphics.getHeight() - size;
-            ySpeed = -Math.abs(ySpeed);
+            y = Gdx.graphics.getHeight() - size; // Ajusta la posición de la bola para evitar que pase por el borde inferior
+            ySpeed = -Math.abs(ySpeed); // Cambia la dirección en Y
         }
     }
     
+    @Override
     public void checkCollision(Paddle paddle) {
-    	
         boolean collidesWithPaddle = collidesWith(paddle);
 
         if (collidesWithPaddle) {
+            ySpeed = -ySpeed; // Invertir la velocidad en el eje Y
 
-            // Reajusta la posición de la bola para evitar que quede dentro del paddle
-            if (x - size <= paddle.getX()) {
-                x = paddle.getX() - size; // Mueve la bola a la izquierda del paddle
-                xSpeed = -xSpeed;
-                ySpeed = Math.abs(ySpeed);
-            } 
-            else if (x + size >= paddle.getX() + paddle.getWidth()) 
-            {
-                x = paddle.getX() + paddle.getWidth() + size; // Mueve la bola a la derecha del paddle
-                ySpeed = Math.abs(ySpeed);
-                xSpeed = -xSpeed;
-            }
-            else
-            {
-            	ySpeed = -ySpeed;
+            // Asegúrate de que la velocidad en Y sea siempre positiva para evitar que la bola quede atrapada
+            ySpeed = Math.abs(ySpeed);
+
+            // Ajusta la posición de la bola para evitar que quede dentro del Paddle
+            if (y - size < paddle.getY() + paddle.getHeight()) {
+                y = paddle.getY() + paddle.getHeight() + size;
             }
 
+            // Reproduce el sonido de colisión
+            hurtSound.play();
         }
     }
+
 
     
     
@@ -108,6 +103,7 @@ public class PingBallDoble implements Bola{
         boolean intersectaY = (y >= paddle.getY() && y <= paddle.getY() + paddle.getHeight());
         return intersectaX && intersectaY;
     }
+    
    
     public void checkCollision(Block block) {
         if (collidesWith(block)) {
