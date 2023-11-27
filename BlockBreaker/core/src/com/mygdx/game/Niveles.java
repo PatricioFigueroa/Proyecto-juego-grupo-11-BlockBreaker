@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.graphics.Texture;
 
 public abstract class Niveles {
-    protected ArrayList<Block> blocks;
-    protected int levelNumber;
-    protected Texture background;
+    private ArrayList<Block> blocks;
+    private int levelNumber;
+    private Texture background;
 
     public Niveles(int numeroNivel) {
         this.levelNumber = numeroNivel;
@@ -16,6 +16,14 @@ public abstract class Niveles {
         initializeBlocks();
         // Inicializa otros aspectos del nivel, como fondos, música, etc.
         initializeLevelAssets();
+    }
+    
+    public void clearBlocks() {
+        blocks.clear();
+    }
+    
+    public void addBlock(Block block) {
+        blocks.add(block);
     }
 
     public abstract void initializeBlocks();

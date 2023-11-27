@@ -25,7 +25,7 @@ public class Nivel1 extends Niveles {
 	        {0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
 	        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 	    };
-	    blocks.clear();
+	    clearBlocks();
 	    int blockWidth = Gdx.graphics.getWidth() / 13 - 10;
 	    int blockHeight = Gdx.graphics.getHeight() / 20;
 	    int y = Gdx.graphics.getHeight();
@@ -34,8 +34,7 @@ public class Nivel1 extends Niveles {
 	        for (int j = 0; j < 13; j++) {
 	            if (invertedCenteredTriangle[i][j] == 1) // poner en la condicion el array
 	            {
-                    Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png"));
-                    blocks.add(block);
+	            	addBlock(new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png")));
 	            }
 	        }
 	    }

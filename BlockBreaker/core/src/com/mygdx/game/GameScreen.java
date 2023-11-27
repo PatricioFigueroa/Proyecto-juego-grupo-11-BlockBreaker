@@ -5,37 +5,31 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameScreen implements Screen {
 
-    final BlockBreakerMenu game;
-    private OrthographicCamera camera;
+    private final BlockBreakerMenu game;
     private SpriteBatch batch;
     private BitmapFont font;
+    private Camera camera; 
     private Texture fondo;
     private Sprite fondoReal;
     private SpriteBatch spriteBatch;
     private Control controlador;
     private Music music;
-
-    public GameScreen(final BlockBreakerMenu game) {
-        this.music = Gdx.audio.newMusic(Gdx.files.internal("cancion juego.mp3"));
-        this.music.setLooping(true);
-        this.music.setVolume(0.1f); 
-        this.music.play();
-
+    
+    public GameScreen(final BlockBreakerMenu game, Camera camera) {
         this.game = game;
         this.batch = game.getBatch();
         this.font = game.getFont();
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth() * 1.08f, Gdx.graphics.getHeight());
+        this.camera = camera; 
 
         fondo = new Texture("fondoJuego.png");
         fondoReal = new Sprite(fondo);
@@ -52,10 +46,28 @@ public class GameScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
 
+        font.getData().setScale(5.0f);
+        
+        GlyphLayout vidaLayout = new GlyphLayout(font, "Vidas : " + controlador.getVidas());
+        GlyphLayout puntosLayout = new GlyphLayout(font, "Puntos: " + controlador.getPuntaje());
+        
+        float puntosX = 10;
+        float vidasX = Math.max(10, Gdx.graphics.getWidth() - 10 - vidaLayout.width);
+        
+        float vidasY = 10 + vidaLayout.height;
+        float PuntosY = 10 + puntosLayout.height;
+
         // Dibujar textos
-        font.draw(batch, "Puntos: " + controlador.getPuntaje(), 10, 25);
-        font.draw(batch, "Vidas : " + controlador.getVidas(), Gdx.graphics.getWidth() - 20, 25);
+        font.draw(batch, "Puntos: " + controlador.getPuntaje(), puntosX, PuntosY);
+        font.draw(batch, "Vidas : " + controlador.getVidas(), vidasX, vidasY);
         batch.end();
+    }
+    
+    public void startMusic() {
+        this.music = Gdx.audio.newMusic(Gdx.files.internal("cancion juego.mp3"));
+        this.music.setLooping(true);
+        this.music.setVolume(0.1f); 
+        this.music.play();
     }
 
     // Fondo
@@ -68,6 +80,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         // TODO Auto-generated method stub
+    	
     }
 
     @Override
@@ -94,13 +107,17 @@ public class GameScreen implements Screen {
             // Destruir
             music.dispose();
             dispose();
-            game.setScreen(new GameOverScreen(game));
-       
+            game.setScreen(new GameOverScreen(game, camera));
+        }
+        
+        if (controlador.ifGameComplete()) {
+            music.dispose();
+            game.setScreen(new VictoryScreen(game, this, camera));
         }
 
         // Verificar si el nivel se terminó
         if (controlador.isNivelCompleto()) {
-            controlador.avanzarNivel();
+            controlador.avanzarNivel(this);
         }
 
         // Dibujar bloques
@@ -112,7 +129,7 @@ public class GameScreen implements Screen {
         // Pausar juego
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE))
             pause();
-
+        	
         // Dibujar pelota
         controlador.dibujarPelota();
 
@@ -130,12 +147,14 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         // TODO Auto-generated method stub
-        game.setScreen(new PausaScreen(game, this));
+    	music.pause();
+    	game.setScreen(new PausaScreen(game, this, camera));
     }
 
     @Override
     public void resume() {
         // TODO Auto-generated method stub
+    	music.play();
     }
 
     @Override
@@ -146,5 +165,6 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
+    	music.dispose();
     }
 }

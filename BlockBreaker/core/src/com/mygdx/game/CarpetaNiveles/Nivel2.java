@@ -27,7 +27,7 @@ public class Nivel2 extends Niveles {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0}
         };
 
-        blocks.clear();
+        clearBlocks();
         int blockWidth = Gdx.graphics.getWidth() / 13 - 10;
         int blockHeight = Gdx.graphics.getHeight() / 20;
         int y = Gdx.graphics.getHeight();
@@ -35,8 +35,7 @@ public class Nivel2 extends Niveles {
             y -= blockHeight + 10;
             for (int j = 0; j < width; j++) {
                 if (customBlockLayout[i][j] == 1) {
-                	Block block = new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png"));
-                    blocks.add(block);
+                	addBlock(new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png")));
                 }
             }
         }

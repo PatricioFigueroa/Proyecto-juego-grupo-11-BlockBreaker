@@ -13,22 +13,22 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class GameOverScreen implements Screen {
 	private final BlockBreakerMenu game;
 	private SpriteBatch batch;	   
-	private BitmapFont font;
-	private OrthographicCamera camera;
+	private Camera camera; 
 	private Sprite fondoGameOver;
 	private SpriteBatch spriteBatch;
+    private ControlBotones controlBotones;
+    private Screen selectedScreen;
+    private Screen[] screens;
 
-	public GameOverScreen(final BlockBreakerMenu game) {
+	public GameOverScreen(final BlockBreakerMenu game, Camera camera) {
 		this.game = game;
         this.batch = game.getBatch();
-        this.font = game.getFont();
-        
+        screens = new Screen[]{new GameScreen(game, camera)};
+        this.camera = camera; 
 		fondoGameOver = new Sprite(new Texture("fondoGameOver.jpg"));
 		spriteBatch = new SpriteBatch();
         spriteBatch = new SpriteBatch();
-        
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        controlBotones = new ControlBotones(new String[]{"Reintentar", "Salir"}, camera.viewportWidth / 2 - 100, camera.viewportHeight / 2 + 50, 200, 40, screens);
 	}
 	@Override
 	public void show() {
@@ -48,21 +48,23 @@ public class GameOverScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		ScreenUtils.clear(0, 0, 0, 0);
+		
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		renderBackground();
 		
 		batch.begin();
-		font.draw(batch, "Toca en cualquier lado para reiniciar.", 100, 100);
+        controlBotones.draw(batch);
 		batch.end();
-		
-        //Salir del juego
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) System.exit(0);
-
-		if (Gdx.input.isTouched()) {
-			game.setScreen(new GameScreen(game));
-			dispose();
-		}
+				
+        selectedScreen = controlBotones.handleInput();
+        if (selectedScreen != null) {
+            if (selectedScreen instanceof GameScreen) {
+                // Llama al método startMusic() antes de cambiar a GameScreen
+                ((GameScreen) selectedScreen).startMusic();
+            }
+            game.setScreen(selectedScreen);
+        }
 
 	}
 

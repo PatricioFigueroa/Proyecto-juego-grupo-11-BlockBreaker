@@ -4,10 +4,10 @@ public interface Bola extends ColisionElementos, DibujarElementos,MovimientoElem
 	
 	   public boolean estaQuieto() ;
 	   
-	    public void setEstaQuieto(boolean bb);
+	   public void setEstaQuieto(boolean bb);
 	    	    
-	    public int getY();   
+	   public int getY();   
 	    
-	    public int getX();
+	   public int getX();
        	    
 }

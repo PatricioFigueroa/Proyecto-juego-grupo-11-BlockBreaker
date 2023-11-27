@@ -11,13 +11,13 @@ public class Block implements DibujarElementos{
     private Sprite sprite;
     
     public Block(int x, int y, int width, int height, Texture texture) {
-        this.x = x;
+        this.x = x + 5;
         this.y = y;
         this.width = width;
         this.height = height;
         this.destroyed = false;
         sprite = new Sprite(texture);
-        sprite.setBounds(x, y, width, height);
+        sprite.setBounds(this.x, this.y, this.width, this.height);
   
     }
     
@@ -56,9 +56,9 @@ public class Block implements DibujarElementos{
 	@Override
 	public void draw(SpriteBatch batch) {
 		// TODO Auto-generated method stub
-        if (!destroyed) {
+       
             sprite.draw(batch);
-        }
+      
 		
 	}
 }

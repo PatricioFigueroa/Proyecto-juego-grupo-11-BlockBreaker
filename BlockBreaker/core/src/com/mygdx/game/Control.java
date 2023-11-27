@@ -18,14 +18,14 @@ public class Control {
     private Paddle pad;
     private SpriteBatch batch;
     private ControlBolasEnJuego controlBolasEnJuego;
-    private boolean EmpezoJuego;
+    private boolean empezoJuego;
 
     public Control() {
         niveles = new ArrayList<>();
         indiceNivel = 0;
         niveles.add(new Nivel1(1));
         niveles.add(new Nivel2(2));
-        EmpezoJuego = false;
+        empezoJuego = false;
         // Inicializa controlBolasEnJuego
         controlBolasEnJuego = new ControlBolasEnJuego();
 
@@ -37,10 +37,12 @@ public class Control {
         InicializarJuegoPorNivel();
     }
 
-    public void avanzarNivel() {
+    public void avanzarNivel(GameScreen game) {
         if (indiceNivel < niveles.size() - 1) {
+        	controlBolasEnJuego.clear();
+        	empezoJuego = false;
             indiceNivel++;
-            InicializarJuegoPorNivel();
+            InicializarJuegoPorNivel();         
         }
     }
 
@@ -57,14 +59,14 @@ public class Control {
             controlBolasEnJuego.crearNuevaBola(pad);
         }
     
-        if(EmpezoJuego == false)
+        if(empezoJuego == false)
         {
         	if(controlBolasEnJuego.estaQuieto())
             {
                 controlBolasEnJuego.moverPelotaConPaddle(pad);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                     controlBolasEnJuego.iniciarBolas();
-                    EmpezoJuego = true;
+                    empezoJuego = true;
                 } 
             }
         }
@@ -78,7 +80,7 @@ public class Control {
         controlBolasEnJuego.clearBolasFueraDePantalla();
         if (controlBolasEnJuego.isEmpty()) {
             vidas--;
-            EmpezoJuego = false;
+            empezoJuego = false;
             if (vidas > 0) {
                 // Si quedan vidas, realiza acciones de fin de juego
                 // Aquí puedes mostrar un mensaje de "Juego terminado" o realizar otras acciones necesarias
@@ -105,6 +107,11 @@ public class Control {
     // Verificar si el nivel se terminó
     public boolean isNivelCompleto() {
         return blocks.isEmpty();
+    }
+    
+    public boolean ifGameComplete() {
+        // Verifica si no hay más niveles y si el juego está completo
+        return indiceNivel >= niveles.size() - 1 && isNivelCompleto();
     }
 
     // Dibujar bloques

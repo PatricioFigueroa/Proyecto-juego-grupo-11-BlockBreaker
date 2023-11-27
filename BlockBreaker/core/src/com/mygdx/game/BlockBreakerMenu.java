@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 	public class BlockBreakerMenu extends Game {
-
 		private SpriteBatch batch;
 		private BitmapFont font;
 		private int higherScore;
