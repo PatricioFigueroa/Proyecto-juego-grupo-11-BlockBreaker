@@ -41,8 +41,14 @@ public class Control {
         if (indiceNivel < niveles.size() - 1) {
             indiceNivel++;
             InicializarJuegoPorNivel();
+            controlBolasEnJuego.clear();
+            controlBolasEnJuego.crearNuevaBola(pad);
+            controlBolasEnJuego.iniciarBolas();
+            EmpezoJuego = true;  // Asegúrate de iniciar el juego correctamente
         }
     }
+
+
 
     public Niveles getNivelActual() {
         if (indiceNivel < niveles.size()) {
@@ -56,23 +62,21 @@ public class Control {
         if (controlBolasEnJuego.isEmpty()) {
             controlBolasEnJuego.crearNuevaBola(pad);
         }
-    
-        if(EmpezoJuego == false)
-        {
-        	if(controlBolasEnJuego.estaQuieto())
-            {
+
+        if (EmpezoJuego) {
+            controlBolasEnJuego.update();
+        } else {
+            if (controlBolasEnJuego.estaQuieto()) {
                 controlBolasEnJuego.moverPelotaConPaddle(pad);
                 if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
                     controlBolasEnJuego.iniciarBolas();
                     EmpezoJuego = true;
-                } 
+                }
             }
         }
-        else
-        {
-            controlBolasEnJuego.update(); // Mueve la pelota cuando no está quieta
-        }
     }
+
+
 
     public void verificarPelotar() {
         controlBolasEnJuego.clearBolasFueraDePantalla();

@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CarpetaInterfaces.Bola;
 
+
 public class ControlBolasEnJuego {
     private ArrayList<Bola> bolasEnJuego; // Utiliza la interfaz Bola
 
@@ -81,9 +82,15 @@ public class ControlBolasEnJuego {
         PingBall ball = (PingBall) bolasEnJuego.get(0);
         if (ball.estaQuieto()) {
             ball.setXY(pad.getX() + pad.getWidth() / 2 - 5, pad.getY() + pad.getHeight() + 11);
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) ball.setEstaQuieto(false);
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                ball.setEstaQuieto(false);
+            }
+        } else {
+            // Mueve la bola con el paddle solo si no está quieta
+            ball.setXY(pad.getX() + pad.getWidth() / 2 - 5, pad.getY() + pad.getHeight() + 11);
         }
     }
+     
 
     public boolean estaQuieto()
     {
