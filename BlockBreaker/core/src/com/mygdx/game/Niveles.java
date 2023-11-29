@@ -3,9 +3,10 @@ package com.mygdx.game;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.CarpetaInterfaces.Bloque;
 
 public abstract class Niveles {
-    private ArrayList<Block> blocks;
+    private ArrayList<Bloque> blocks;
     private int levelNumber;
     private Texture background;
 
@@ -22,7 +23,7 @@ public abstract class Niveles {
         blocks.clear();
     }
     
-    public void addBlock(Block block) {
+    public void addBlock(Bloque block) {
         blocks.add(block);
     }
 
@@ -32,7 +33,7 @@ public abstract class Niveles {
    
     //se utiliza para extraer los bloques, no para modificarlos
     //, en el método InicializarJuegoPorNivel se crea una copia de este y ese se modifica
-    public ArrayList<Block> getBlocks() {
+    public ArrayList<Bloque> getBlocks() {
         return blocks;
     }
 

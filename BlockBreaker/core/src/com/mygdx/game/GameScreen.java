@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.game.CarpetaInterfaces.Fondo;
 
 public class GameScreen implements Screen {
 
@@ -18,9 +19,8 @@ public class GameScreen implements Screen {
     private SpriteBatch batch;
     private BitmapFont font;
     private Camera camera; 
-    private Texture fondo;
-    private Sprite fondoReal;
-    private SpriteBatch spriteBatch;
+    private Fondo fondo;
+
     private Control controlador;
     private Music music;
     
@@ -31,9 +31,7 @@ public class GameScreen implements Screen {
 
         this.camera = camera; 
 
-        fondo = new Texture("fondoJuego.png");
-        fondoReal = new Sprite(fondo);
-        spriteBatch = new SpriteBatch();
+        
 
         // Inicializa el controlador
         controlador = new Control();
@@ -71,11 +69,7 @@ public class GameScreen implements Screen {
     }
 
     // Fondo
-    public void renderBackground() {
-        spriteBatch.begin();
-        fondoReal.draw(spriteBatch);
-        spriteBatch.end();
-    }
+    
 
     @Override
     public void show() {
@@ -91,7 +85,7 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0f, 3f / 255, 52f / 255, 255f);
 
         // Imagen de fondo
-        renderBackground();
+        controlador.renderBackground(batch);
 
         // Dibujar Tabla
         controlador.dibujarTabla();

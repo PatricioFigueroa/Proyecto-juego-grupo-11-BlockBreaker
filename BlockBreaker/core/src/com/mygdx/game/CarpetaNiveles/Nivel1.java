@@ -3,10 +3,13 @@ package com.mygdx.game.CarpetaNiveles;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Block;
+import com.mygdx.game.BloqueNivel1;
+import com.mygdx.game.Nivel1Factory;
 import com.mygdx.game.Niveles;
 
 public class Nivel1 extends Niveles {
-
+	private Nivel1Factory factory = new Nivel1Factory() ;
+	
 	public Nivel1(int numeroNivel) {
 		super(numeroNivel);
 		// TODO Auto-generated constructor stub
@@ -34,16 +37,13 @@ public class Nivel1 extends Niveles {
 	        for (int j = 0; j < 13; j++) {
 	            if (invertedCenteredTriangle[i][j] == 1) // poner en la condicion el array
 	            {
-	            	addBlock(new Block(j * (blockWidth + 10), y, blockWidth, blockHeight, new Texture("bloqueAzul.png")));
+	            	addBlock(new BloqueNivel1(j * (blockWidth + 10), y, blockWidth, blockHeight));
 	            }
 	        }
 	    }
-	    
-	    
-		
 	}
 	
-
+	
 	@Override
 	public void initializeLevelAssets() {
 		// TODO Auto-generated method stub

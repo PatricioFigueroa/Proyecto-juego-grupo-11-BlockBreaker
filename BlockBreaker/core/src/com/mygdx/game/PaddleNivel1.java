@@ -4,21 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.CarpetaInterfaces.DibujarElementos;
+import com.mygdx.game.CarpetaInterfaces.Paddle;
 
-public class Paddle implements DibujarElementos{
-    private int x;
+public class PaddleNivel1 implements Paddle {
+	private int x;
     private int y;
     private int width;
     private int height;
     private Texture texture;
     
-    public Paddle() {
+    public PaddleNivel1() {
     	this.x = Gdx.graphics.getWidth()/2-50;
     	this.y= 40;
     	width = 200;
     	height = 20;
-    	texture = new Texture("paddle.png");
+    	texture = new Texture("paddle1.png");
     }
      
     public int getX() {return x;}
@@ -40,10 +40,6 @@ public class Paddle implements DibujarElementos{
         if (x2 > 0 && x2 + width < Gdx.graphics.getWidth()) {
             x = x2;
         }
-		
 	}
 
-
-    
-    
 }

@@ -5,7 +5,9 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.Bloque;
 import com.mygdx.game.CarpetaInterfaces.Bola;
+import com.mygdx.game.CarpetaInterfaces.Paddle;
 
 public class PingBallDoble implements Bola{
     private int x;
@@ -105,7 +107,7 @@ public class PingBallDoble implements Bola{
     }
     
    
-    public void checkCollision(Block block) {
+    public void checkCollision(Bloque block) {
         if (collidesWith(block)) {
             if (x - size <= block.getX()) {
                 xSpeed = -Math.abs(xSpeed);
@@ -122,7 +124,7 @@ public class PingBallDoble implements Bola{
     }
     
 
-    private boolean collidesWith(Block bb) {
+    private boolean collidesWith(Bloque bb) {
         boolean intersectaX = (bb.getX() + bb.getWidth() >= x - size) && (bb.getX() <= x + size);
         boolean intersectaY = (bb.getY() + bb.getHeight() >= y - size) && (bb.getY() <= y + size);
         return intersectaX && intersectaY;

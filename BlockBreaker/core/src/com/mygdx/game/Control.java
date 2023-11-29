@@ -5,12 +5,16 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.CarpetaInterfaces.Bloque;
 import com.mygdx.game.CarpetaInterfaces.Bola;
+import com.mygdx.game.CarpetaInterfaces.Fondo;
+import com.mygdx.game.CarpetaInterfaces.NivelFactory;
+import com.mygdx.game.CarpetaInterfaces.Paddle;
 import com.mygdx.game.CarpetaNiveles.*;
 
 public class Control {
     private ArrayList<Niveles> niveles;
-    private ArrayList<Block> blocks;
+    private ArrayList<Bloque> blocks;
     private int vidas = 3;
     private int puntaje = 0;
     private int indiceNivel;
@@ -19,12 +23,16 @@ public class Control {
     private SpriteBatch batch;
     private ControlBolasEnJuego controlBolasEnJuego;
     private boolean empezoJuego;
+    private Fondo fondo;
+    private Bloque bloque;
 
+    private NivelFactory nivelActual;
     public Control() {
         niveles = new ArrayList<>();
         indiceNivel = 0;
         niveles.add(new Nivel1(1));
         niveles.add(new Nivel2(2));
+        niveles.add(new Nivel3(3));
         empezoJuego = false;
         // Inicializa controlBolasEnJuego
         controlBolasEnJuego = new ControlBolasEnJuego();
@@ -32,7 +40,11 @@ public class Control {
         // Crea una instancia de ControlPoder y pasa controlBolasEnJuego
         controlPoder = new ControlPoder(controlBolasEnJuego);
         batch = new SpriteBatch();
-        pad = new Paddle();
+        nivelActual = new Nivel1Factory();
+       
+        pad = nivelActual.crearPaddle();
+        fondo = nivelActual.crearFondo();
+        bloque = nivelActual.crearBloque();
         // Inicializa el nivel 1
         InicializarJuegoPorNivel();
     }
@@ -42,6 +54,20 @@ public class Control {
         	controlBolasEnJuego.clear();
         	empezoJuego = false;
             indiceNivel++;
+            if(indiceNivel == 2)
+            {
+            	nivelActual = new Nivel2Factory();
+            	pad = nivelActual.crearPaddle();
+                fondo = nivelActual.crearFondo();
+                bloque = nivelActual.crearBloque();
+            }
+            else
+            {
+            	nivelActual = new Nivel3Factory();
+            	pad = nivelActual.crearPaddle();
+                fondo = nivelActual.crearFondo();
+                bloque = nivelActual.crearBloque();
+            }
 
             InicializarJuegoPorNivel();         
         }
@@ -75,8 +101,6 @@ public class Control {
         }
     }
 
-
-
     public void verificarPelotar() {
         controlBolasEnJuego.clearBolasFueraDePantalla();
         if (controlBolasEnJuego.isEmpty()) {
@@ -100,7 +124,7 @@ public class Control {
         Niveles currentLevel = getNivelActual();
         if (currentLevel != null) {
             currentLevel.initializeBlocks();
-            ArrayList<Block> levelBlocks = currentLevel.getBlocks();
+            ArrayList<Bloque> levelBlocks = currentLevel.getBlocks();
             blocks = new ArrayList<>(levelBlocks);
         }
     }
@@ -110,6 +134,12 @@ public class Control {
         return blocks.isEmpty();
     }
     
+    public void renderBackground(SpriteBatch batch) {
+    	
+    	batch.begin();
+        fondo.draw(batch);
+        batch.end();
+    }
     public boolean ifGameComplete() {
         // Verifica si no hay más niveles y si el juego está completo
         return indiceNivel >= niveles.size() - 1 && isNivelCompleto();
@@ -118,7 +148,7 @@ public class Control {
     // Dibujar bloques
     public void dibujarBloques() {
         batch.begin();
-        for (Block b : blocks) {
+        for (Bloque b : blocks) {
             b.draw(batch);
             controlBolasEnJuego.colisionPelotaBloques(b);
         }
@@ -128,7 +158,7 @@ public class Control {
     // Actualizar bloques
     public void actualizarBloques() {
         for (int i = 0; i < blocks.size(); i++) {
-            Block b = blocks.get(i);
+            Bloque b = blocks.get(i);
             if (b.getDestroyed()) {
                 puntaje++;
                 int bloqueX = b.getX(); // Obtiene la coordenada X del bloque
@@ -151,7 +181,7 @@ public class Control {
 
     public void colisionPelota() {
         controlBolasEnJuego.colisionPelota(pad);
-        for (Block block : blocks)
+        for (Bloque block : blocks)
             controlBolasEnJuego.colisionPelotaBloques(block);
     }
 
