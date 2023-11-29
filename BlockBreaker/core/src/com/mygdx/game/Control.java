@@ -37,12 +37,11 @@ public class Control {
         empezoJuego = false;
         // Inicializa controlBolasEnJuego
         controlBolasEnJuego = new ControlBolasEnJuego();
-
+        comportamiento = new Comportamiento();
         // Crea una instancia de ControlPoder y pasa controlBolasEnJuego
         controlPoder = new ControlPoder(controlBolasEnJuego);
         batch = new SpriteBatch();
         nivelActual = new Nivel1Factory();
-       
         pad = nivelActual.crearPaddle();
         fondo = nivelActual.crearFondo();
         nivelActual.crearBloque();
@@ -176,13 +175,13 @@ public class Control {
 
                 Random random = new Random();
                 int numeroAleatorio = random.nextInt(100) + 1;
-                if (numeroAleatorio >= 50) {
                     // Se ve la probabilidad de crear un poder, esta implementación está adaptada solo a un poder
                     Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY);
                     if (nuevaBola != null) {
+                    	comportamiento.aplicarComportamiento(nuevaBola);
                         controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
+                        
                     }
-                }
                 i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
         }

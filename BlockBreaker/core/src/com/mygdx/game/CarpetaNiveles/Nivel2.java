@@ -2,7 +2,6 @@ package com.mygdx.game.CarpetaNiveles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Block;
 import com.mygdx.game.BloqueNivel2;
 import com.mygdx.game.Niveles;
 

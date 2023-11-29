@@ -6,6 +6,11 @@ import com.mygdx.game.CarpetaInterfaces.ComportamientoS;
 public class Comportamiento {
 	private ComportamientoS comportamiento;
 	
+	public Comportamiento()
+	{
+		comportamiento = new MovimientoNormal();
+	}
+	
     public void setComportamiento(ComportamientoS c) {
 		comportamiento = c;
 	}
