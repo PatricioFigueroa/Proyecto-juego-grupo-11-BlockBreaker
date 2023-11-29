@@ -19,14 +19,10 @@ public class PingBall implements Bola {
 	    private Sound hurtSound;
 	    private Sprite sprite;
 	    
-	    //pad.getX()+pad.getWidth()/2-5, pad.getY()+pad.getHeight()+11
-	    
 	    public PingBall(Paddle pad) {
 	        this.x = pad.getX()+pad.getWidth()/2-5;
 	        this.y = pad.getY()+pad.getHeight()+11;
 	        this.size = 20;
-	        this.xSpeed = 10;
-	        this.ySpeed = 14;
 	        estaQuieto = true;
 	        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
 	        sprite = new Sprite(new Texture("bolaBlancaHD.png"));
@@ -49,7 +45,9 @@ public class PingBall implements Bola {
 	        this.y = y;
 	    }
 
-	    public int getY() {return y;}
+	    public int getY() {
+	    	return y;
+	    	}
 	    
 	    public void draw(SpriteBatch batch){
 	    	sprite.draw(batch);
@@ -143,19 +141,30 @@ public class PingBall implements Bola {
 	    }
 
 
-
+	    @Override
 		public int getXSpeed() {
 			return xSpeed;
 		}
 
+		@Override
 		public int getYSpeed() {
 			return ySpeed;
 		}
 
 		@Override
 		public int getX() {
-			// TODO Auto-generated method stub
-			return 0;
+			return x;
+		}
+
+		@Override
+		public void setXSpeed(int xSpeed) {
+			this.xSpeed = xSpeed;
+			
+		}
+
+		@Override
+		public void setYSpeed(int ySpeed) {
+			this.ySpeed = ySpeed;
 		}
 
 		

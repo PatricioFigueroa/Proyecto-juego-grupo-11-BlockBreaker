@@ -19,12 +19,10 @@ public class PingBallDoble implements Bola{
     private Sound hurtSound;
     private Sprite sprite;
 
-    public PingBallDoble(int x, int y, int xSpeed, int ySpeed) {
+    public PingBallDoble(int x, int y) {
         this.x = x;
         this.y = y;
         this.size = 20;
-        this.xSpeed = (int) (xSpeed * (1.2));
-        this.ySpeed = (int) (ySpeed * (1.2));
         estaQuieto = false;
         this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
         sprite = new Sprite(new Texture("bolaAmarillaHD.png"));
@@ -36,15 +34,18 @@ public class PingBallDoble implements Bola{
         return y < 0; // Verifica si la bola ha caído fuera de la pantalla.
     }
 
+	@Override
     public boolean estaQuieto() {
     	sprite.setPosition(x, y);
         return estaQuieto;
     }
-
+	
+	@Override
     public void setEstaQuieto(boolean bb) {
         estaQuieto = bb;
     }
-
+    
+	@Override
     public int getY() {
         return y;
     }
@@ -133,8 +134,29 @@ public class PingBallDoble implements Bola{
 
 	@Override
 	public int getX() {
-		// TODO Auto-generated method stub
-		return 0;
+		return x;
+	}
+	
+    @Override
+	public int getXSpeed() {
+		return xSpeed;
+	}
+
+	@Override
+	public int getYSpeed() {
+		return ySpeed;
+	}
+
+
+	@Override
+	public void setXSpeed(int xSpeed) {
+		this.xSpeed = xSpeed;
+		
+	}
+
+	@Override
+	public void setYSpeed(int ySpeed) {
+		this.ySpeed = ySpeed;
 	}
 }
 

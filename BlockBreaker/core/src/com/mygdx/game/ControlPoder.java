@@ -24,7 +24,7 @@ public class ControlPoder {
         // en este caso, multiplesbolas tiene un 60% de probabilidad de aparición
         if (numeroAleatorio > 0) {
             // Crea la nueva bola de poder (PingBallDoble en este caso, pero podría ser de otro tipo)
-            Bola nueva = new PingBallDoble(x, y,6, 6); // Valores por defecto o según la lógica del juego
+            Bola nueva = new PingBallDoble(x, y); // Valores por defecto o según la lógica del juego
 
             controlBolasEnJuego.agregarBolaEnJuego(nueva);
 

@@ -68,11 +68,6 @@ public class ControlBolasEnJuego {
         bolasEnJuego.removeAll(bolasParaEliminar);
     }
 
-    public void crearNuevaBola(Paddle pad) {
-        Bola nuevaBola = new PingBall(pad);
-        agregarBolaEnJuego(nuevaBola);
-    }
-
     public void iniciarBolas() {
         for (Bola bola : bolasEnJuego) {
             bola.setEstaQuieto(false);
@@ -99,5 +94,14 @@ public class ControlBolasEnJuego {
         PingBall ball = (PingBall) bolasEnJuego.get(0);
         return ball.estaQuieto();
     }
+
+	public PingBall getBolaInicial() {
+		return (PingBall) bolasEnJuego.get(0);
+		
+	}
     
+    public void crearNuevaBola(PingBall bola) {
+        agregarBolaEnJuego(bola);
+    }
+	
 }

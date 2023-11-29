@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CarpetaInterfaces.Bloque;
 import com.mygdx.game.CarpetaInterfaces.Bola;
+import com.mygdx.game.CarpetaInterfaces.ComportamientoS;
 import com.mygdx.game.CarpetaInterfaces.Fondo;
 import com.mygdx.game.CarpetaInterfaces.NivelFactory;
 import com.mygdx.game.CarpetaInterfaces.Paddle;
@@ -24,9 +25,9 @@ public class Control {
     private ControlBolasEnJuego controlBolasEnJuego;
     private boolean empezoJuego;
     private Fondo fondo;
-    private Bloque bloque;
-
     private NivelFactory nivelActual;
+    private Comportamiento comportamiento;
+    
     public Control() {
         niveles = new ArrayList<>();
         indiceNivel = 0;
@@ -44,7 +45,7 @@ public class Control {
        
         pad = nivelActual.crearPaddle();
         fondo = nivelActual.crearFondo();
-        bloque = nivelActual.crearBloque();
+        nivelActual.crearBloque();
         // Inicializa el nivel 1
         InicializarJuegoPorNivel();
     }
@@ -54,26 +55,26 @@ public class Control {
         	controlBolasEnJuego.clear();
         	empezoJuego = false;
             indiceNivel++;
+            
             if(indiceNivel == 2)
             {
             	nivelActual = new Nivel2Factory();
             	pad = nivelActual.crearPaddle();
                 fondo = nivelActual.crearFondo();
-                bloque = nivelActual.crearBloque();
+                nivelActual.crearBloque();
             }
             else
             {
             	nivelActual = new Nivel3Factory();
             	pad = nivelActual.crearPaddle();
                 fondo = nivelActual.crearFondo();
-                bloque = nivelActual.crearBloque();
+                nivelActual.crearBloque();
+                comportamiento.setComportamiento(new MovimientoAleatorio());
             }
 
             InicializarJuegoPorNivel();         
         }
     }
-
-
 
     public Niveles getNivelActual() {
         if (indiceNivel < niveles.size()) {
@@ -84,8 +85,16 @@ public class Control {
 
     // Monitorear inicio del juego
     public void monitorearInico() {
+    	
+        if(indiceNivel == 1)
+        {
+        	comportamiento.setComportamiento(new MovimientoAleatorio());
+        }
+    	
         if (controlBolasEnJuego.isEmpty()) {
-            controlBolasEnJuego.crearNuevaBola(pad);
+            PingBall bola = new PingBall(pad);
+            comportamiento.aplicarComportamiento(bola);    
+            controlBolasEnJuego.crearNuevaBola(bola);
         }
 
         if (empezoJuego) {
