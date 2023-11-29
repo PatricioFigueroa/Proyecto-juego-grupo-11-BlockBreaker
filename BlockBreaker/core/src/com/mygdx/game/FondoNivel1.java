@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +11,8 @@ public class FondoNivel1 implements Fondo {
     public FondoNivel1()
     {
     	sprite = new Sprite(new Texture("fondoJuego.png"));
+    	sprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
     }
     @Override
 	public void draw(SpriteBatch batch) {
