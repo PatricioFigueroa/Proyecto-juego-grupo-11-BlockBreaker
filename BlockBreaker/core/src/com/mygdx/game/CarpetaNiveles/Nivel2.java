@@ -41,9 +41,5 @@ public class Nivel2 extends Niveles {
         }
     }
 
-    @Override
-    public void initializeLevelAssets() {
-        // Agrega aquí cualquier recurso adicional necesario para el nivel 2.
-    }
 
 }

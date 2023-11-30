@@ -111,6 +111,7 @@ public class Control {
         controlBolasEnJuego.clearBolasFueraDePantalla();
         if (controlBolasEnJuego.isEmpty()) {
             vidas--;
+            pad = nivelActual.crearPaddle();
             empezoJuego = false;
             if (vidas > 0) {
                 // Si quedan vidas, realiza acciones de fin de juego

@@ -41,12 +41,5 @@ public class Nivel1 extends Niveles {
 	    }
 	}
 	
-	
-	@Override
-	public void initializeLevelAssets() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

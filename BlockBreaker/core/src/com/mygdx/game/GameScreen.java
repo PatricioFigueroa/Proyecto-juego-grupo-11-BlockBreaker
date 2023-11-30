@@ -97,6 +97,7 @@ public class GameScreen implements Screen {
             music.dispose();
             dispose();
             game.setScreen(new GameOverScreen(game, camera));
+            
         }
         
         if (controlador.ifGameComplete()) {

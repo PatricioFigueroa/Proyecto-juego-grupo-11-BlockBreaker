@@ -40,14 +40,6 @@ public class Nivel3 extends Niveles {
 		    }
 		}
 		
-		
-		@Override
-		public void initializeLevelAssets() {
-			// TODO Auto-generated method stub
-			
-		}
-
-
 	}
 
 
