@@ -196,6 +196,15 @@ public class PingBall extends Poderes implements Bola  {
 			}
 			
 		}
-
+		
+		public void setSize(int s)
+		{
+			this.size = s;
+			sprite.setBounds(x, y, size, size);
+		}
+		
+		public int getSize() {
+			return size;
+		}
 		
 }

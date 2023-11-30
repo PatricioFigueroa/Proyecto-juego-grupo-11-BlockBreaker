@@ -45,17 +45,15 @@ public class ControlBolasEnJuego {
         }
     }
 
-    public Bola colisionPelotaBloques(Bloque block, Comportamiento comportamiento) {
+    public void colisionPelotaBloques(Bloque block, Comportamiento comportamiento) {
         boolean colision;
     	for (Bola bola : bolasEnJuego) { // Utiliza la interfaz Bola
         	colision = bola.checkCollision(block, comportamiento);
         	if(colision)
         	{
         		comportamiento.aplicarComportamiento(bola);
-        		return bola;
         	}
         }
-    	return null;
     }
 
     public void clear() {

@@ -28,7 +28,7 @@ public class Control {
     
     public Control() {
         niveles = new ArrayList<>();
-        indiceNivel = 1;
+        indiceNivel = 0;
         niveles.add(new Nivel1(1));
         niveles.add(new Nivel2(2));
         niveles.add(new Nivel3(3));

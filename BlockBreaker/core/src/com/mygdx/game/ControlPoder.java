@@ -24,20 +24,20 @@ public class ControlPoder {
         int numeroAleatorio = random.nextInt(100) + 1;
 
         // en esta parte se distribuirán los poderes con distintos porcentajes,
-        if (numeroAleatorio > 0 && numeroAleatorio<12) {
+        if (numeroAleatorio > 0 && numeroAleatorio<22) {
             // Crea la nueva bola de poder (PingBallDoble en este caso, pero podría ser de otro tipo)
             Bola nueva = new PingBallDoble(x, y); // Valores por defecto o según la lógica del juego
             controlBolasEnJuego.agregarBolaEnJuego(nueva);
 
             return nueva; // Devuelve la nueva bola
-        } else if(numeroAleatorio >= 12 && numeroAleatorio < 66) {
+        } else if(numeroAleatorio >= 22 && numeroAleatorio < 66) {
         	poderTabla = (Poderes) pad;
-        	poderTabla.ejecutarPoder();
+        	poderTabla.ejecutarPoder(null, pad);
         }else {
         	if(bola != null)
         	{
         		poderPelota = (Poderes) bola;
-        		poderPelota.ejecutarPoder();
+        		poderPelota.ejecutarPoder(bola, null);
         	}
         }
 

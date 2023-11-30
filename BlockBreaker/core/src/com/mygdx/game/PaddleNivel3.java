@@ -62,8 +62,13 @@ public class PaddleNivel3 extends Poderes implements Paddle {
 	@Override
 	public void disminuirTamaño() {
 		// TODO Auto-generated method stub
-		if(width <= 250)
+		if(width >= 150)
 			width-=10;
 	}
 
+	@Override 
+	public void aumentarTamaño(PingBall b, Paddle p) {
+		if(width <= 250)
+			width+=50;
+	}
 }

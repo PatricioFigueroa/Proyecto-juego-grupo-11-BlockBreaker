@@ -2,10 +2,12 @@ package com.mygdx.game;
 
 import java.util.Random;
 
+import com.mygdx.game.CarpetaInterfaces.Paddle;
+
 public abstract class Poderes {
     private Random random = new Random();
 
-    public void ejecutarPoder() {
+    public void ejecutarPoder(PingBall p, Paddle e) {
         int numeroAleatorio = random.nextInt(4); // Número aleatorio entre 0 y 3
 
         switch (numeroAleatorio) {
@@ -16,7 +18,7 @@ public abstract class Poderes {
                 disminuirVelocidad();
                 break;
             case 2:
-                aumentarTamaño();
+                aumentarTamaño(p,e);
                 break;
             case 3:
                 disminuirTamaño();
@@ -29,10 +31,12 @@ public abstract class Poderes {
 
     public abstract void aumentarVelocidad();
     public abstract void disminuirVelocidad();
-    public void aumentarTamaño(){ 
-    	if(size < 25)
+    public void aumentarTamaño(PingBall p, Paddle e){ 
+    	if(p != null)
+    	if(p.getSize() < 50)
         {
-            size += 1;
+            p.setSize(p.getSize() + 15) ;
+            
         }
     }
     public abstract void disminuirTamaño();
