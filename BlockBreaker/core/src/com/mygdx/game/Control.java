@@ -171,7 +171,7 @@ public class Control {
                 int bloqueY = b.getY(); // Obtiene la coordenada Y del bloque
                 blocks.remove(b);
                     // Se ve la probabilidad de crear un poder, esta implementación está adaptada solo a un poder
-                Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY);
+                Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY, pad);
                 if (nuevaBola != null) {
 	                comportamiento.aplicarComportamiento(nuevaBola);
 	                controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);                      

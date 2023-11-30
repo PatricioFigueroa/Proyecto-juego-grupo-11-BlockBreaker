@@ -11,12 +11,14 @@ public class PaddleNivel3 extends Poderes implements Paddle {
     private int y;
     private int width;
     private int height;
+    private int velocidad;
     private Texture texture;
     
     public PaddleNivel3() {
     	this.x = Gdx.graphics.getWidth()/2-50;
     	this.y= 40;
     	width = 200;
+    	velocidad = 15;
     	height = 20;
     	texture = new Texture("paddle3.png");
     }
@@ -45,19 +47,23 @@ public class PaddleNivel3 extends Poderes implements Paddle {
 	@Override
 	public void aumentarVelocidad() {
 		// TODO Auto-generated method stub
-		
+		if(velocidad <=20)
+			velocidad += 1;
 	}
 
 	@Override
 	public void disminuirVelocidad() {
 		// TODO Auto-generated method stub
+		if(velocidad >=10)
+			velocidad -= 1;
 		
 	}
 
 	@Override
 	public void disminuirTamaño() {
 		// TODO Auto-generated method stub
-		
+		if(width <= 250)
+			width-=10;
 	}
 
 }
