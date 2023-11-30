@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CarpetaInterfaces.Paddle;
 
-public class PaddleNivel1 implements Paddle {
+public class PaddleNivel1 extends Poderes implements Paddle {
 	private int x;
     private int y;
     private int width;
@@ -40,6 +40,24 @@ public class PaddleNivel1 implements Paddle {
         if (x2 > 0 && x2 + width < Gdx.graphics.getWidth()) {
             x = x2;
         }
+	}
+
+	@Override
+	public void aumentarVelocidad() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disminuirVelocidad() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disminuirTamaño() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

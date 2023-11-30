@@ -9,7 +9,7 @@ import com.mygdx.game.CarpetaInterfaces.Bloque;
 import com.mygdx.game.CarpetaInterfaces.Bola;
 import com.mygdx.game.CarpetaInterfaces.Paddle;
 
-public class PingBall implements Bola {
+public class PingBall extends Poderes implements Bola  {
 	    private int x;
 	    private int y;
 	    private int size;
@@ -167,6 +167,24 @@ public class PingBall implements Bola {
 		@Override
 		public void setYSpeed(int ySpeed) {
 			this.ySpeed = ySpeed;
+		}
+
+		@Override
+		public void aumentarVelocidad() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void disminuirVelocidad() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void disminuirTamaño() {
+			// TODO Auto-generated method stub
+			
 		}
 
 		

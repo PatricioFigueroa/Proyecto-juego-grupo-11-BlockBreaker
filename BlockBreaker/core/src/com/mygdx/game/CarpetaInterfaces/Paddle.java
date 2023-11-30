@@ -1,7 +1,5 @@
 package com.mygdx.game.CarpetaInterfaces;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface Paddle {
