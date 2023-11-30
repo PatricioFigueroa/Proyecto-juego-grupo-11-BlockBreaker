@@ -10,8 +10,7 @@ public abstract class Niveles {
         this.blocks = new ArrayList<>();
         // Inicializa los bloques del nivel según la matriz de generación de bloques.
         initializeBlocks();
-        // Inicializa otros aspectos del nivel, como fondos, música, etc.
-        initializeLevelAssets();
+
     }
     
     public void clearBlocks() {
@@ -23,8 +22,6 @@ public abstract class Niveles {
     }
 
     public abstract void initializeBlocks();
-
-    public abstract void initializeLevelAssets();
    
     //se utiliza para extraer los bloques, no para modificarlos
     //, en el método InicializarJuegoPorNivel se crea una copia de este y ese se modifica

@@ -63,7 +63,7 @@ public class PaddleNivel2 extends Poderes implements Paddle {
 	public void disminuirTamaño() {
 		// TODO Auto-generated method stub
 		if(width <= 250)
-			width-=10;
+			width-=20;
 	}
 
 }

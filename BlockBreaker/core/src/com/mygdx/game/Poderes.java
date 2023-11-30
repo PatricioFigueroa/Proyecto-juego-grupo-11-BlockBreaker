@@ -30,7 +30,10 @@ public abstract class Poderes {
     public abstract void aumentarVelocidad();
     public abstract void disminuirVelocidad();
     public void aumentarTamaño(){ 
-    	
+    	if(size < 25)
+        {
+            size += 1;
+        }
     }
     public abstract void disminuirTamaño();
 }

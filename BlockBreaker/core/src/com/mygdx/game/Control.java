@@ -28,7 +28,7 @@ public class Control {
     
     public Control() {
         niveles = new ArrayList<>();
-        indiceNivel = 0;
+        indiceNivel = 1;
         niveles.add(new Nivel1(1));
         niveles.add(new Nivel2(2));
         niveles.add(new Nivel3(3));
@@ -171,7 +171,7 @@ public class Control {
                 int bloqueY = b.getY(); // Obtiene la coordenada Y del bloque
                 blocks.remove(b);
                     // Se ve la probabilidad de crear un poder, esta implementación está adaptada solo a un poder
-                Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY, pad);
+                Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY, pad, controlBolasEnJuego.getBolaInicial());
                 if (nuevaBola != null) {
 	                comportamiento.aplicarComportamiento(nuevaBola);
 	                controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);                      

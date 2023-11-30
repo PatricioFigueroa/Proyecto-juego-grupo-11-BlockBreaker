@@ -20,20 +20,25 @@ public class ControlPoder {
         this.random = new Random();
     }
     
-    public Bola activarPoder(int x, int y, Paddle pad) { // Utiliza la interfaz Bola
+    public Bola activarPoder(int x, int y, Paddle pad, PingBall bola) { // Utiliza la interfaz Bola
         int numeroAleatorio = random.nextInt(100) + 1;
 
         // en esta parte se distribuirán los poderes con distintos porcentajes,
-        if (numeroAleatorio > 0 && numeroAleatorio<33) {
+        if (numeroAleatorio > 0 && numeroAleatorio<12) {
             // Crea la nueva bola de poder (PingBallDoble en este caso, pero podría ser de otro tipo)
             Bola nueva = new PingBallDoble(x, y); // Valores por defecto o según la lógica del juego
             controlBolasEnJuego.agregarBolaEnJuego(nueva);
 
             return nueva; // Devuelve la nueva bola
-        } else if(numeroAleatorio >=33  && numeroAleatorio<66) {
+        } else if(numeroAleatorio >= 12 && numeroAleatorio < 66) {
+        	poderTabla = (Poderes) pad;
         	poderTabla.ejecutarPoder();
         }else {
-        	poderPelota.ejecutarPoder();
+        	if(bola != null)
+        	{
+        		poderPelota = (Poderes) bola;
+        		poderPelota.ejecutarPoder();
+        	}
         }
 
         return null; // En caso de que no se cree una nueva bola

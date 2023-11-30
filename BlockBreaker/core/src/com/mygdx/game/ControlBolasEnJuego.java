@@ -102,8 +102,10 @@ public class ControlBolasEnJuego {
     }
 
 	public PingBall getBolaInicial() {
-		return (PingBall) bolasEnJuego.get(0);
-		
+		Bola bolaAux = bolasEnJuego.get(0);	
+		if(bolaAux instanceof PingBall)
+			return (PingBall) bolaAux;	
+		return null;
 	}
     
     public void crearNuevaBola(PingBall bola) {

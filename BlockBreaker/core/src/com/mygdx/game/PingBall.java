@@ -171,19 +171,29 @@ public class PingBall extends Poderes implements Bola  {
 
 		@Override
 		public void aumentarVelocidad() {
-			// TODO Auto-generated method stub
-			
+			if(xSpeed < 15 && ySpeed < 19)
+			{
+				xSpeed +=1;
+				ySpeed +=2;
+			}
 		}
 
 		@Override
 		public void disminuirVelocidad() {
-			// TODO Auto-generated method stub
+			if(xSpeed > 5 && ySpeed > 9)
+			{
+				xSpeed -=1;
+				ySpeed -=2;
+			}
 			
 		}
 
 		@Override
 		public void disminuirTamaño() {
-			// TODO Auto-generated method stub
+			if(size > 15)
+			{
+				size -= 1;
+			}
 			
 		}
 
