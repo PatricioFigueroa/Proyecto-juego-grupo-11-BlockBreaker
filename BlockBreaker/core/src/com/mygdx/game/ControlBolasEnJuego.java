@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CarpetaInterfaces.Bloque;
 import com.mygdx.game.CarpetaInterfaces.Bola;
 import com.mygdx.game.CarpetaInterfaces.Paddle;
-import com.mygdx.game.*;
 
 public class ControlBolasEnJuego {
     private ArrayList<Bola> bolasEnJuego; // Utiliza la interfaz Bola
@@ -46,10 +45,17 @@ public class ControlBolasEnJuego {
         }
     }
 
-    public void colisionPelotaBloques(Bloque block) {
-        for (Bola bola : bolasEnJuego) { // Utiliza la interfaz Bola
-            bola.checkCollision(block);
+    public Bola colisionPelotaBloques(Bloque block, Comportamiento comportamiento) {
+        boolean colision;
+    	for (Bola bola : bolasEnJuego) { // Utiliza la interfaz Bola
+        	colision = bola.checkCollision(block, comportamiento);
+        	if(colision)
+        	{
+        		comportamiento.aplicarComportamiento(bola);
+        		return bola;
+        	}
         }
+    	return null;
     }
 
     public void clear() {

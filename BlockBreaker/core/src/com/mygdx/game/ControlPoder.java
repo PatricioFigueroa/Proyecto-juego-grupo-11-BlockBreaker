@@ -25,7 +25,6 @@ public class ControlPoder {
         if (numeroAleatorio > 0) {
             // Crea la nueva bola de poder (PingBallDoble en este caso, pero podría ser de otro tipo)
             Bola nueva = new PingBallDoble(x, y); // Valores por defecto o según la lógica del juego
-
             controlBolasEnJuego.agregarBolaEnJuego(nueva);
 
             return nueva; // Devuelve la nueva bola

@@ -1,13 +1,11 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
-import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CarpetaInterfaces.Bloque;
 import com.mygdx.game.CarpetaInterfaces.Bola;
-import com.mygdx.game.CarpetaInterfaces.ComportamientoS;
 import com.mygdx.game.CarpetaInterfaces.Fondo;
 import com.mygdx.game.CarpetaInterfaces.NivelFactory;
 import com.mygdx.game.CarpetaInterfaces.Paddle;
@@ -85,9 +83,9 @@ public class Control {
     // Monitorear inicio del juego
     public void monitorearInico() {
     	
-        if(indiceNivel == 1)
+        if(indiceNivel == 0)
         {
-        	comportamiento.setComportamiento(new MovimientoAleatorio());
+        	comportamiento.setComportamiento(new MovimientoNormal());
         }
     	
         if (controlBolasEnJuego.isEmpty()) {
@@ -158,7 +156,7 @@ public class Control {
         batch.begin();
         for (Bloque b : blocks) {
             b.draw(batch);
-            controlBolasEnJuego.colisionPelotaBloques(b);
+            controlBolasEnJuego.colisionPelotaBloques(b, comportamiento);
         }
         batch.end();
     }
@@ -172,17 +170,13 @@ public class Control {
                 int bloqueX = b.getX(); // Obtiene la coordenada X del bloque
                 int bloqueY = b.getY(); // Obtiene la coordenada Y del bloque
                 blocks.remove(b);
-
-                Random random = new Random();
-                int numeroAleatorio = random.nextInt(100) + 1;
                     // Se ve la probabilidad de crear un poder, esta implementación está adaptada solo a un poder
-                    Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY);
-                    if (nuevaBola != null) {
-                    	comportamiento.aplicarComportamiento(nuevaBola);
-                        controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);
-                        
-                    }
-                i--; // Para no saltarse 1 tras eliminar del ArrayList
+                Bola nuevaBola = controlPoder.activarPoder(bloqueX, bloqueY);
+                if (nuevaBola != null) {
+	                comportamiento.aplicarComportamiento(nuevaBola);
+	                controlBolasEnJuego.agregarBolaEnJuego(nuevaBola);                      
+                }
+             i--; // Para no saltarse 1 tras eliminar del ArrayList
             }
         }
     }
@@ -190,7 +184,7 @@ public class Control {
     public void colisionPelota() {
         controlBolasEnJuego.colisionPelota(pad);
         for (Bloque block : blocks)
-            controlBolasEnJuego.colisionPelotaBloques(block);
+            controlBolasEnJuego.colisionPelotaBloques(block, comportamiento);
     }
 
     public void dibujarTabla() {

@@ -22,6 +22,8 @@ public class PingBall implements Bola {
 	    public PingBall(Paddle pad) {
 	        this.x = pad.getX()+pad.getWidth()/2-5;
 	        this.y = pad.getY()+pad.getHeight()+11;
+	        xSpeed = 0;
+	        ySpeed = 0;
 	        this.size = 20;
 	        estaQuieto = true;
 	        this.hurtSound = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
@@ -76,8 +78,7 @@ public class PingBall implements Bola {
 	    }
 	    
 	    
-	    @Override
-		public void checkCollision(Paddle paddle) {
+	    public void checkCollision(Paddle paddle) {
 			// TODO Auto-generated method stub
 			boolean collidesWithPaddle = collidesWith(paddle);
 
@@ -111,8 +112,7 @@ public class PingBall implements Bola {
 	        return intersectaX && intersectaY;
 	    }
 	    
-
-	    public void checkCollision(Bloque block) {
+	    public boolean checkCollision(Bloque block, Comportamiento comportamiento) {
 	        if(collidesWith(block)){
 	        	if (x - size <= block.getX()) {
 	        		xSpeed = -Math.abs(xSpeed);
@@ -131,7 +131,9 @@ public class PingBall implements Bola {
 			    }
 	            hurtSound.play();
 	            block.setDestroyed(); 
+	            return true;
 	        }
+	        return false;
 	    }
 	    private boolean collidesWith(Bloque bb) {
 

@@ -2,16 +2,11 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.CarpetaInterfaces.Bloque;
 
 public abstract class Niveles {
     private ArrayList<Bloque> blocks;
-    private int levelNumber;
-    private Texture background;
-
     public Niveles(int numeroNivel) {
-        this.levelNumber = numeroNivel;
         this.blocks = new ArrayList<>();
         // Inicializa los bloques del nivel según la matriz de generación de bloques.
         initializeBlocks();

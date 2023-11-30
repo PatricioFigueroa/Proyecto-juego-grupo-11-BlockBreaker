@@ -13,8 +13,13 @@ public class MovimientoAleatorio implements ComportamientoS{
 		if(bola.getXSpeed() != 0&& bola.getYSpeed() != 0)
 		{
 	        Random random = new Random();
+	        
+	        boolean randomX = random.nextBoolean();
 	        double randomValue = random.nextInt(2);
-	        bola.setXSpeed((int) (bola.getXSpeed() * Math.pow(-1, randomValue)));
+	        if (randomX) 
+	        	bola.setXSpeed((int) (-bola.getXSpeed() * Math.pow(-1, randomValue)));	
+	        else
+	        	bola.setXSpeed((int) (bola.getXSpeed() * Math.pow(-1, randomValue)));	
 	        bola.setYSpeed((int) (bola.getYSpeed() * Math.pow(-1, randomValue)));
 		}
 		else
